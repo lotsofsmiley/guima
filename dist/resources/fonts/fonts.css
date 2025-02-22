@@ -1,0 +1,16 @@
+@import url('../fonts/Questa/stylesheet.css');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'dxgotha';
+    src: url('../fonts/Dx-Gotha-Free-Personal-Use/font/dxgotha.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'fieldgothic';
+    src: url('../fonts/FieldGothic/Field Gothic/OTF/FieldGothic-No.34DemiXCond.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}

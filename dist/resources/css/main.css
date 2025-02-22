@@ -1,0 +1,282 @@
+@import url("../fonts/fonts.css");
+/* title: dxgotha, text: fieldgothic */
+/* attributes */
+.scroll-wrapper {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+.scroll-section {
+  max-height: 100%;
+  height: 100%;
+  scroll-margin-top: 10vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+.spch {
+  font-family: "dxgotha";
+  font-weight: 200;
+  color: rgb(119, 197, 213);
+}
+
+.main-font-color {
+  color: rgb(119, 197, 213);
+  font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  z-index: 100;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 169, 214, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(120, 169, 214, 0.3);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  font-family: "fieldgothic", sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+}
+
+h1 {
+  font-family: "fieldgothic", sans-serif;
+  font-weight: 200;
+  font-size: 7rem;
+}
+
+.wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* header */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  height: 10dvh;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.4s ease-out;
+  z-index: 998;
+}
+
+.scrolled {
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 2px 4px rgba(1, 1, 1, 0.5);
+}
+
+.navbar-header {
+  color: rgb(119, 197, 213);
+  font-size: 3rem;
+  margin-left: 3vw;
+}
+
+.navbar-header a {
+  color: rgb(119, 197, 213);
+  font-size: 3rem;
+  text-decoration: none;
+}
+
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-menu .hidden {
+  display: none;
+}
+
+.navbar-menu li {
+  margin-inline: 1rem;
+}
+
+.navbar-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.75s ease;
+}
+
+.navbar-menu a:hover {
+  border-bottom: 1px solid rgb(214, 163, 120);
+}
+
+.navbar-social {
+  display: flex;
+  gap: 1rem;
+  margin-right: 3vw;
+}
+
+.navbar-social .fa-brands {
+  color: rgb(214, 163, 120);
+  font-size: 1.5rem;
+  transition: color 0.75s ease;
+}
+
+.navbar-social .fa-brands:hover {
+  color: rgb(214, 163, 120);
+}
+
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+  .navbar-social {
+    display: none;
+  }
+  .navbar-header {
+    width: 100%;
+    text-align: center;
+  }
+  .navbar-header a {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .navbar-header {
+    font-size: 1.2rem;
+  }
+}
+/* banner */
+/* title: dxgotha, text: fieldgothic */
+.banner-section {
+  position: relative;
+  background: url("../images/image00024.jpg") top fixed no-repeat;
+  background-size: cover;
+  z-index: -2;
+}
+.banner-section .banner-section-container {
+  position: inherit;
+  height: 100%;
+  width: auto;
+  z-index: -2;
+}
+.banner-section .banner-section-title {
+  position: relative;
+  text-align: left;
+  top: 70%;
+  left: 10%;
+  padding: 1rem 1rem 0.5rem 1rem;
+  width: -moz-max-content;
+  width: max-content;
+  background-color: rgb(0, 0, 0);
+  color: rgb(119, 197, 213);
+  z-index: -1;
+}
+.banner-section .banner-section-title::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  height: 50%;
+  left: 100%;
+  border-right: rgb(214, 163, 120) solid 2px;
+}
+.banner-section .banner-section-title::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  width: 50%;
+  left: 50%;
+  border-top: rgb(214, 163, 120) solid 2px;
+}
+.banner-section .banner-section-title h1 {
+  font-size: 10vh;
+}
+
+/* about */
+/* title: dxgotha, text: fieldgothic */
+.about-section {
+  background-color: rgb(0, 0, 0);
+}
+.about-section .about-section-container {
+  position: relative;
+  height: 100%;
+  padding: 10%;
+}
+.about-section .about-section-description {
+  position: relative;
+  padding: 3%;
+  max-height: 100%;
+  height: 100%;
+}
+.about-section .about-section-description::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  min-width: 13rem;
+  width: 20%;
+  left: 0;
+  border-top: rgb(214, 163, 120) solid 2px;
+}
+.about-section .about-section-description::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  height: 10rem;
+  left: 0;
+  border-left: rgb(214, 163, 120) solid 2px;
+}
+.about-section .about-section-description .about-section .about-section-description-text {
+  height: 100%;
+  text-align: justify;
+}
+
+/* upcoming */
+.upcoming-section {
+  background-color: bisque;
+}
+
+/* gallery */
+.gallery-section {
+  background-color: cadetblue;
+}
+
+/* schedule */
+.schedule-section {
+  background-color: chocolate;
+}
+
+/* store */
+.store-section {
+  background-color: cornflowerblue;
+}
+
+/* footer *//*# sourceMappingURL=main.css.map */

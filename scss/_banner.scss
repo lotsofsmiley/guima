@@ -1,0 +1,51 @@
+@import './variables';
+
+.banner-section {
+    position: relative;
+    background: url('../images/image00024.jpg') top fixed no-repeat;
+    background-size: cover;
+    z-index: -2;
+
+    #{&}-container {
+        position: inherit;
+        height: 100%;
+        width: auto;
+        z-index: -2;
+    }
+
+    #{&}-title {
+        position: relative;
+        text-align: left;
+        top: 70%;
+        left: 10%;
+        padding: 1rem 1rem 0.5rem 1rem;
+        width: max-content;
+        background-color: $main-background;
+        color: $main-title-color;
+        z-index: -1;
+
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            height: 50%;
+            left: 100%;
+            border-right: $sec-title-color solid 2px;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 100%;
+            width: 50%;
+            left: 50%;
+            border-top: $sec-title-color solid 2px;
+        }
+
+        & h1 {
+            font-size: 10vh;
+        }
+    }
+}

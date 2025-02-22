@@ -1,0 +1,116 @@
+@import url('../fonts/fonts.css');
+@import './variables';
+
+
+
+/* attributes */
+
+.scroll-wrapper {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+}
+
+.scroll-section {
+    max-height: 100%;
+    height: 100%;
+    scroll-margin-top: 10vh;
+    scroll-snap-align: start;
+    overflow: hidden;
+}
+
+.spch {
+    font-family: 'dxgotha';
+    font-weight: 200;
+    color: $main-title-color;
+}
+
+.main-font-color {
+    color: $main-title-color;
+    font-weight: bold;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    z-index: 100;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $scrollbar;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: $scrollhover;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: $main-background;
+    color: $main-font-color;
+
+    font-family: 'fieldgothic', sans-serif;
+    font-weight: 200;
+    font-size: 2rem;
+}
+
+h1 {
+    font-family: 'fieldgothic', sans-serif;
+    font-weight: 200;
+    font-size: 7rem;
+}
+
+.wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* header */
+@import './navbar';
+
+/* banner */
+@import './banner';
+
+/* about */
+@import './about';
+
+/* upcoming */
+
+.upcoming-section {
+    background-color: bisque;
+}
+
+/* gallery */
+
+.gallery-section {
+    background-color: cadetblue;
+}
+
+/* schedule */
+
+.schedule-section {
+    background-color: chocolate;
+}
+
+/* store */
+
+.store-section {
+    background-color: cornflowerblue;
+}
+
+/* footer */
