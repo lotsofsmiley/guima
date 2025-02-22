@@ -73,9 +73,21 @@
     color: $sec-title-color;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
     .navbar-menu {
         display: none;
+    }
+
+    .navbar-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        z-index: 10;
+        width: 300px;
+        background-color: $main-background;
     }
 
     .navbar-social {
@@ -88,12 +100,6 @@
     }
 
     .navbar-header a {
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar-header {
-        font-size: 1.2rem;
+        font-size: 3rem;
     }
 }

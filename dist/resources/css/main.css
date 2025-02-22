@@ -9,9 +9,14 @@
   scroll-behavior: smooth;
 }
 
+.scroll-100 {
+  max-height: 100% !important;
+  height: 100% !important;
+}
+
 .scroll-section {
-  max-height: 100%;
-  height: 100%;
+  max-height: 90%;
+  height: 90%;
   scroll-margin-top: 10vh;
   scroll-snap-align: start;
   overflow: hidden;
@@ -151,9 +156,20 @@ h1 {
   color: rgb(214, 163, 120);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .navbar-menu {
     display: none;
+  }
+  .navbar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 10;
+    width: 300px;
+    background-color: rgb(0, 0, 0);
   }
   .navbar-social {
     display: none;
@@ -163,12 +179,7 @@ h1 {
     text-align: center;
   }
   .navbar-header a {
-    font-size: 1.5rem;
-  }
-}
-@media (max-width: 480px) {
-  .navbar-header {
-    font-size: 1.2rem;
+    font-size: 3rem;
   }
 }
 /* banner */
@@ -219,6 +230,16 @@ h1 {
   font-size: 10vh;
 }
 
+@media (max-width: 820px) {
+  .banner-section .banner-section-title {
+    top: 70% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+  }
+  .banner-section .banner-section-title h1 {
+    font-size: 7vh;
+  }
+}
 /* about */
 /* title: dxgotha, text: fieldgothic */
 .about-section {

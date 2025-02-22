@@ -1,8 +1,6 @@
 @import url('../fonts/fonts.css');
 @import './variables';
 
-
-
 /* attributes */
 
 .scroll-wrapper {
@@ -13,9 +11,14 @@
     scroll-behavior: smooth;
 }
 
+.scroll-100 {
+    max-height: 100%!important;
+    height: 100%!important;
+}
+
 .scroll-section {
-    max-height: 100%;
-    height: 100%;
+    max-height: 90%;
+    height: 90%;
     scroll-margin-top: 10vh;
     scroll-snap-align: start;
     overflow: hidden;

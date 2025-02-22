@@ -49,3 +49,17 @@
         }
     }
 }
+
+@media (max-width: 820px) {
+    .banner-section {
+        #{&}-title {
+            top: 70%!important;
+            left: 50%!important;
+            transform: translate(-50%, -50%);
+
+            & h1 {
+                font-size: 7vh;
+            }
+        }
+    }
+}   
