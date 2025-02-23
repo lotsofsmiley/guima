@@ -45,7 +45,7 @@
         }
 
         & h1 {
-            font-size: 10vh;
+            font-size: 10vw;
         }
     }
 }
@@ -57,9 +57,28 @@
             left: 50%!important;
             transform: translate(-50%, -50%);
 
-            & h1 {
-                font-size: 7vh;
-            }
         }
     }
 }   
+
+@media (max-height: 500px) {
+    .navbar {
+        height: 20vh;
+    }
+
+    .banner-section {
+        #{&}-title {
+            top: 50%!important;
+        }
+    }
+}
+
+@media (max-height: 700px) {
+    .banner-section {
+        #{&}-title {
+            & h1 {
+                font-size: 15vh;
+            }
+        }
+    }
+}

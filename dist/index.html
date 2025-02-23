@@ -11,32 +11,61 @@
 </head>
 <body>
     <nav class="navbar" id="navbar">
-        <div class="navbar-header">
-            <span><a href="#home">GUI<span class="spch">M</span>A</a></span>
+        <div class="navbar-container">
+            <div class="navbar-header">
+                <span><a href="#home">GUI<span class="spch">M</span>A</a></span>
+            </div>
+            <ul class="navbar-menu hideonmobile">
+                <li><a href="#about">SOBRE</a></li>
+                <li>
+                    <a href="#upcoming">
+                        <span class="spch">N</span>OVA
+                        <span class="spch">E</span>RA
+                    </a>
+                </li>
+                <li><a href="#gallery">GALERIA</a></li>
+                <li><a href="#schedule">AGENDA</a></li>
+                <li class="hidden"><a class="hidden" href="#store">LOJA></li>
+                <li><a href="#contacts">CONTACTOS</a></li>
+            </ul>
+            <div class="navbar-social hideonmobile">
+                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" title="Spotify"><i class="fa-brands fa-spotify"></i></a>
+                <a href="#" title="Apple Music"><i class="fa-brands fa-itunes-note"></i></a>
+                <a href="#" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="navbar-menu-controller">
+                <a onclick=openMenu() href="#"><i class="fa-solid fa-bars"></i></a>
+            </div>
         </div>
-        <ul class="navbar-menu">
-            <li><a href="#about">SOBRE</a></li>
-            <li>
-                <a href="#upcoming">
-                    <span class="spch">N</span>OVA
-                    <span class="spch">E</span>RA
-                </a>
-            </li>
-            <li><a href="#gallery">GALERIA</a></li>
-            <li><a href="#schedule">AGENDA</a></li>
-            <li class="hidden"><a href="#store">LOJA></li>
-            <li><a href="#contacts">CONTACTOS</a></li>
-        </ul>
-        <div class="navbar-social">
-            <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" title="Spotify"><i class="fa-brands fa-spotify"></i></a>
-            <a href="#" title="Apple Music"><i class="fa-brands fa-itunes-note"></i></a>
-            <a href="#" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
+        <div class="sidebar">
+            <div class="sidebar-menu-controller">
+                <a onclick=closeMenu() href="#"><i class="fa-solid fa-xmark"></i></a>            
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#about">SOBRE</a></li>
+                <li>
+                    <a href="#upcoming">
+                        <span class="spch">N</span>OVA
+                        <span class="spch">E</span>RA
+                    </a>
+                </li>
+                <li><a href="#gallery">GALERIA</a></li>
+                <li><a href="#schedule">AGENDA</a></li>
+                <li class="hidden"><a class="hidden" href="#store">LOJA></li>
+                <li><a href="#contacts">CONTACTOS</a></li>
+            </ul>
+            <div class="sidebar-social">
+                <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" title="Spotify"><i class="fa-brands fa-spotify"></i></a>
+                <a href="#" title="Apple Music"><i class="fa-brands fa-itunes-note"></i></a>
+                <a href="#" title="Youtube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
         </div>
     </nav>
     <article class="scroll-wrapper">
 
-        <section class="scroll-section section banner-section scroll-100">
+        <section id="home" class="scroll-section section banner-section scroll-100">
             <div class="banner-section-container">
                 <div class="banner-section-title">
                     <h1>
