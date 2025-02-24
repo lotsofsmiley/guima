@@ -10,53 +10,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Get all links in the navbar
-const navLinks = document.querySelectorAll('.navbar-menu a');
-
-// Add event listener to scroll event on article
-article.addEventListener('scroll', () => {
-  // Get the current scroll position
-  const scrollPosition = article.scrollTop;
-
-  // Loop through all sections
+  const navLinks = document.querySelectorAll('.navbar-menu a');
+  const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
   const sections = document.querySelectorAll('.scroll-section');
-  sections.forEach((section, index) => {
-    // Get the top and bottom positions of the section
-    const sectionTop = section.offsetTop;
-    const sectionBottom = sectionTop + section.offsetHeight;
 
-    // Check if the section is currently in view
-    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-      // Get the corresponding link in the navbar
-      const link = navLinks[index];
+  article.addEventListener('scroll', () => {
+    const scrollPosition = article.scrollTop;
+    sections.forEach((section, index) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionMiddle = sectionTop + (sectionHeight / 2);
 
-      // Add class to the link to apply the same style as when it's hovered
-      link.classList.add('active');
+      if (scrollPosition >= sectionMiddle) {
+        navLinks.forEach((link) => {
+          link.classList.remove('active');
+        });
+        navLinks[index].classList.add('active');
 
-      // Remove class from other links
-      navLinks.forEach((otherLink) => {
-        if (otherLink !== link) {
-          otherLink.classList.remove('active');
-        }
-      });
-    }
-  });
-});
-
-// Add event listener to click event on links
-navLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-    // Add class to the link to apply the same style as when it's hovered
-    link.classList.add('active');
-
-    // Remove class from other links
-    navLinks.forEach((otherLink) => {
-      if (otherLink !== link) {
-        otherLink.classList.remove('active');
+        sidebarLinks.forEach((link) => {
+          link.classList.remove('active');
+        });
+        sidebarLinks[index].classList.add('active');
       }
     });
   });
-});
 });
 
 function openMenu() {
@@ -108,52 +85,7 @@ document.addEventListener('click', function(event) {
 
 //SOURCETREE
 
-// Get all links in the navbar
-const navLinks = document.querySelectorAll('.navbar-menu a');
 
-// Get the article element
-const article = document.querySelector('article');
-
-// Add event listener to scroll event on article
-article.addEventListener('scroll', () => {
-  // Remove active class from all links
-  navLinks.forEach((link) => {
-    link.classList.remove('active');
-  });
-
-  // Get the current scroll position
-  const scrollPosition = article.scrollTop;
-
-  // Loop through all sections
-  const sections = document.querySelectorAll('.scroll-section');
-  sections.forEach((section, index) => {
-    // Get the top and bottom positions of the section
-    const sectionTop = section.offsetTop;
-    const sectionBottom = sectionTop + section.offsetHeight;
-
-    // Check if the section is currently in view
-    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-      // Get the corresponding link in the navbar
-      const link = navLinks[index];
-
-      // Add class to the link to apply the same style as when it's hovered
-      link.classList.add('active');
-    }
-  });
-});
-
-// Add event listener to click event on links
-navLinks.forEach((link) => {
-  link.addEventListener('click', () => {
-    // Remove active class from all links
-    navLinks.forEach((otherLink) => {
-      otherLink.classList.remove('active');
-    });
-
-    // Add class to the link to apply the same style as when it's hovered
-    link.classList.add('active');
-  });
-});
 
 
 
