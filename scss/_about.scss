@@ -3,17 +3,6 @@
 .about-section {
     background-color: $main-background;
 
-    &::before {
-        display: block;
-        content: " ";
-        height: 5rem;
-        /* Give height of your fixed element */
-        margin-top: -5rem;
-        /* Give negative margin of your fixed element */
-        visibility: hidden;
-        pointer-events: none;
-    }
-
     #{&}-container {
         position: relative;
         height: 100%;
@@ -37,7 +26,7 @@
             left: 0;
             border-top: $sec-title-color solid 2px;
         }
-
+        
         &::after {
             content: '';
             display: block;
@@ -47,17 +36,43 @@
             left: 0;
             border-left: $sec-title-color solid 2px;
         }
+
+        @media (max-width: 700px) {
+            &::after {
+                display: none;
+            }
+        }
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1000px) or (max-height: 800px) {
     .about-section {
+        height: min-content;
         #{&}-container {
             padding: 5%!important;
+            height: auto;
+
+            & h2 {
+                font-size: 1.75em;
+            }
         }
 
         #{&}-description {
             font-size: 1.5rem;
+            height: auto;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .about-section {
+        #{&}-container {
+            padding: 5%!important;
+            padding-block: 5%!important;
+
+            & h2 {
+                font-size: 1.5em;
+            }
         }
     }
 }
@@ -65,8 +80,13 @@
 @media (max-width: 500px) {
     .about-section {
         #{&}-description {
+            padding-inline: 0!important;
+            padding-bottom: 0!important;
+            font-size: 1.25rem;
+            padding: 1%;
+
             &::before{
-                min-width: 97%;
+                min-width: 100%;
             }
         }
     }

@@ -14,7 +14,7 @@
   }
 }
 .scroll-100 {
-  max-height: 100% !important;
+  max-height: 100vh !important;
   height: 100vh !important;
   height: 100% !important;
 }
@@ -27,16 +27,27 @@
   overflow: hidden;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1000px) or (max-height: 800px) {
   .scroll-section {
     scroll-snap-align: none;
-    scroll-margin-top: 0;
     max-height: 100%;
     height: 100%;
   }
   .scroll-wrapper {
-    height: 150vh;
-    height: 150dvh;
+    height: 125vh;
+    height: 125dvh;
+  }
+}
+@media (max-width: 1000px) {
+  .offset::before {
+    display: block;
+    content: " ";
+    height: 10vh;
+    /* Give height of your fixed element */
+    margin-top: -10vh;
+    /* Give negative margin of your fixed element */
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 .spch {
@@ -332,16 +343,6 @@ h1 {
 .about-section {
   background-color: rgb(0, 0, 0);
 }
-.about-section::before {
-  display: block;
-  content: " ";
-  height: 5rem;
-  /* Give height of your fixed element */
-  margin-top: -5rem;
-  /* Give negative margin of your fixed element */
-  visibility: hidden;
-  pointer-events: none;
-}
 .about-section .about-section-container {
   position: relative;
   height: 100%;
@@ -373,18 +374,47 @@ h1 {
   left: 0;
   border-left: rgb(214, 163, 120) solid 2px;
 }
+@media (max-width: 700px) {
+  .about-section .about-section-description::after {
+    display: none;
+  }
+}
 
-@media (max-width: 1000px) {
+@media (max-width: 1000px) or (max-height: 800px) {
+  .about-section {
+    height: -moz-min-content;
+    height: min-content;
+  }
   .about-section .about-section-container {
     padding: 5% !important;
+    height: auto;
+  }
+  .about-section .about-section-container h2 {
+    font-size: 1.75em;
   }
   .about-section .about-section-description {
     font-size: 1.5rem;
+    height: auto;
+  }
+}
+@media (max-width: 700px) {
+  .about-section .about-section-container {
+    padding: 5% !important;
+    padding-block: 5% !important;
+  }
+  .about-section .about-section-container h2 {
+    font-size: 1.5em;
   }
 }
 @media (max-width: 500px) {
+  .about-section .about-section-description {
+    padding-inline: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 1.25rem;
+    padding: 1%;
+  }
   .about-section .about-section-description::before {
-    min-width: 97%;
+    min-width: 100%;
   }
 }
 /* upcoming */

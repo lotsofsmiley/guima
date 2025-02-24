@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
-
+  if(window.innerWidth < 1000 || window.innerHeight < 800) {
     const article = document.querySelector('article');
     article.addEventListener('scroll', function () {
         if (article.scrollTop > 0) {
@@ -20,20 +19,24 @@ document.addEventListener('DOMContentLoaded', function () {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
       const sectionMiddle = sectionTop + (sectionHeight / 2);
-
-      if (scrollPosition >= sectionMiddle) {
+      
+      if (scrollPosition >= sectionMiddle && (index === sections.length - 1 || scrollPosition < sections[index + 1].offsetTop)) {
         navLinks.forEach((link) => {
           link.classList.remove('active');
         });
         navLinks[index].classList.add('active');
-
+  
         sidebarLinks.forEach((link) => {
           link.classList.remove('active');
         });
         sidebarLinks[index].classList.add('active');
+      } else {
+        navLinks[index].classList.remove('active');
+        sidebarLinks[index].classList.remove('active');
       }
     });
   });
+  }
 });
 
 function openMenu() {
@@ -70,22 +73,3 @@ document.addEventListener('click', function(event) {
         closeMenu();
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-//SOURCETREE
-
-
-
-
-

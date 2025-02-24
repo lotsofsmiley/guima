@@ -17,7 +17,7 @@
 }
 
 .scroll-100 {
-    max-height: 100%!important;
+    max-height: 100vh!important;
     height: 100vh!important;
     height: 100%!important;
 }
@@ -30,19 +30,32 @@
     overflow: hidden;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1000px) or (max-height: 800px) {
     .scroll-section {
         scroll-snap-align: none;
-        scroll-margin-top: 0;
         max-height: 100%;
         height: 100%;
     }
 
     .scroll-wrapper {
-        height: 150vh;
-        height: 150dvh;
+        height: 125vh;
+        height: 125dvh;
     }
 }
+
+@media (max-width: 1000px) {
+    .offset::before {
+        display: block;
+        content: " ";
+        height: 10vh;
+        /* Give height of your fixed element */
+        margin-top: -10vh;
+        /* Give negative margin of your fixed element */
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
 
 .spch {
     font-family: 'dxgotha';
