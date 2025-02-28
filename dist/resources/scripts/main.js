@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  if(window.innerWidth < 1000 || window.innerHeight < 800) {
+  
     const article = document.querySelector('article');
     article.addEventListener('scroll', function () {
         if (article.scrollTop > 0) {
@@ -9,34 +9,35 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-  const navLinks = document.querySelectorAll('.navbar-menu a');
-  const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
-  const sections = document.querySelectorAll('.scroll-section');
+  //if(window.innerWidth > 1000 || window.innerHeight > 800) {
+    const navLinks = document.querySelectorAll('.navbar-menu a');
+    const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+    const sections = document.querySelectorAll('.scroll-section');
 
-  article.addEventListener('scroll', () => {
-    const scrollPosition = article.scrollTop;
-    sections.forEach((section, index) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionMiddle = sectionTop + (sectionHeight / 2);
-      
-      if (scrollPosition >= sectionMiddle && (index === sections.length - 1 || scrollPosition < sections[index + 1].offsetTop)) {
-        navLinks.forEach((link) => {
-          link.classList.remove('active');
-        });
-        navLinks[index].classList.add('active');
-  
-        sidebarLinks.forEach((link) => {
-          link.classList.remove('active');
-        });
-        sidebarLinks[index].classList.add('active');
-      } else {
-        navLinks[index].classList.remove('active');
-        sidebarLinks[index].classList.remove('active');
-      }
+    article.addEventListener('scroll', () => {
+      const scrollPosition = article.scrollTop;
+      sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionMiddle = sectionTop + (sectionHeight / 2);
+        
+        if (scrollPosition >= sectionMiddle && (index === sections.length - 1 || scrollPosition < sections[index + 1].offsetTop)) {
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+          });
+          navLinks[index].classList.add('active');
+    
+          sidebarLinks.forEach((link) => {
+            link.classList.remove('active');
+          });
+          sidebarLinks[index].classList.add('active');
+        } else {
+          navLinks[index].classList.remove('active');
+          sidebarLinks[index].classList.remove('active');
+        }
+      });
     });
-  });
-  }
+  //}
 });
 
 function openMenu() {
