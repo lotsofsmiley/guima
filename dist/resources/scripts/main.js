@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     article.addEventListener('scroll', function () {
         if (article.scrollTop > 0) {
             document.querySelector('.navbar').classList.add('scrolled');
+            document.querySelector('.banner-section-title').classList.add('scrolled');
         } else {
             document.querySelector('.navbar').classList.remove('scrolled');
+            document.querySelector('.banner-section-title').classList.remove('scrolled');
         }
     });
 

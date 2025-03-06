@@ -30,8 +30,8 @@
 @media (max-width: 1000px) or (max-height: 800px) {
   .scroll-section {
     scroll-snap-align: none;
-    max-height: 100%;
-    height: 100%;
+    max-height: none;
+    height: none;
   }
   .scroll-wrapper {
     height: 125vh;
@@ -125,7 +125,7 @@ h1 {
   height: 10vh;
   height: 10dvh;
   align-items: center;
-  transition: 0.4s ease-out;
+  transition: 0.3s ease-out;
   z-index: 998;
 }
 .navbar .navbar-container {
@@ -287,27 +287,28 @@ h1 {
   padding: 1rem 1rem 0.5rem 1rem;
   width: -moz-max-content;
   width: max-content;
-  background-color: rgb(0, 0, 0);
   color: rgb(119, 197, 213);
   z-index: -1;
-}
-.banner-section .banner-section-title::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 50%;
-  height: 50%;
-  left: 100%;
-  border-right: rgb(214, 163, 120) solid 2px;
-}
-.banner-section .banner-section-title::after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 100%;
-  width: 50%;
-  left: 50%;
-  border-top: rgb(214, 163, 120) solid 2px;
+  transition: 0.3s ease-out;
+  /*&::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      height: 50%;
+      left: 100%;
+      border-right: $sec-title-color solid 2px;
+  }
+
+  &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 100%;
+      width: 50%;
+      left: 50%;
+      border-top: $sec-title-color solid 2px;
+  }*/
 }
 .banner-section .banner-section-title h1 {
   font-size: 10vw;
@@ -318,6 +319,7 @@ h1 {
     top: 70% !important;
     left: 50% !important;
     transform: translate(-50%, -50%);
+    background: rgb(0, 0, 0);
   }
 }
 @media (max-height: 500px) {
@@ -326,6 +328,10 @@ h1 {
   }
   .banner-section .banner-section-title {
     top: 50% !important;
+    background: rgb(0, 0, 0);
+  }
+  .banner-section .banner-section-title h1 {
+    font-size: 10vw !important;
   }
 }
 @media (max-height: 650px) {
@@ -379,6 +385,10 @@ h1 {
     display: none;
   }
 }
+.about-section .about-section-quote {
+  padding-top: 3%;
+  text-align: center;
+}
 
 @media (max-width: 1000px) or (max-height: 800px) {
   .about-section {
@@ -392,6 +402,9 @@ h1 {
   .about-section .about-section-container h2 {
     font-size: 1.75em;
   }
+  .about-section .about-section-quote h2 {
+    font-size: 1.25em;
+  }
   .about-section .about-section-description {
     font-size: 1.5rem;
     height: auto;
@@ -404,6 +417,9 @@ h1 {
   }
   .about-section .about-section-container h2 {
     font-size: 1.5em;
+  }
+  .about-section .about-section-quote h2 {
+    font-size: 1em;
   }
 }
 @media (max-width: 500px) {

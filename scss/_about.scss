@@ -43,6 +43,11 @@
             }
         }
     }
+
+    #{&}-quote {
+        padding-top: 3%;
+        text-align: center;
+    }
 }
 
 @media (max-width: 1000px) or (max-height: 800px) {
@@ -54,6 +59,11 @@
 
             & h2 {
                 font-size: 1.75em;
+            }
+        }
+        #{&}-quote {
+            & h2 {
+                font-size: 1.25em;
             }
         }
 
@@ -72,6 +82,12 @@
 
             & h2 {
                 font-size: 1.5em;
+            }
+        }
+
+        #{&}-quote {
+            & h2 {
+                font-size: 1em;
             }
         }
     }
