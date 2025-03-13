@@ -1,24 +1,10 @@
-.upcoming-section {
+.gallery-section {
     background: $main-background;
     border-top: 1px solid $sec-title-color;
     #{&}-container {
         position: relative;
         height: 100%;
-        padding: 5%
-
-        /*&::after {
-            content: '';
-            display: block;
-            position:absolute;
-            bottom: 0;
-            left: 50%;
-            background-color: $main-color;
-            --size: 400px;
-            width: var(--size);
-            height: var(--size);
-            border-radius: var(--size);
-            filter: blur(calc(var(--size) / 6));
-        }*/
+        padding: 5%;
     }
 
     #{&}-title {
@@ -31,9 +17,18 @@
         
 
         & h2 {
-            font-size: 6rem;
+            font-size: 4rem;
             letter-spacing: 0.5rem;
             //text-shadow: 2px 2px 0px $sec-background;
+
+            ::before {
+                content: '';
+                display: block;
+                position:absolute;
+                top:0;
+                right:100%;
+                border-right: 1px solid $main-title-color;
+            }
         }
     }
 }

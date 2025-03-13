@@ -57,9 +57,9 @@
 @media (min-width: 1200px) and (min-height: 1000px) {
     .about-section {
         #{&}-image-container {
-            background: url('../images/DSC01420.jpg') center no-repeat;
+            background: url('../images/3.jpeg') center no-repeat;
             opacity: 0.5;
-            filter: blur(1px);
+            filter: blur(1px);  
             background-size: cover;
             position: absolute;
             top:10%;

@@ -148,6 +148,7 @@ h1 {
 .navbar .navbar-header a {
   color: rgb(119, 197, 213);
   font-size: 3rem;
+  letter-spacing: 0.2rem;
   text-decoration: none;
 }
 .navbar .navbar-menu, .navbar .sidebar-menu {
@@ -158,6 +159,7 @@ h1 {
 }
 .navbar .navbar-menu li, .navbar .sidebar-menu li {
   margin-inline: 1rem;
+  letter-spacing: 0.05rem;
 }
 .navbar .navbar-menu a, .navbar .sidebar-menu a {
   color: #fff;
@@ -317,6 +319,8 @@ h1 {
 }
 .banner-section .banner-section-title h1 {
   font-size: 10vw;
+  letter-spacing: 0.3rem;
+  text-shadow: 10px 10px rgb(0, 0, 0);
 }
 
 @media (max-width: 900px) {
@@ -401,7 +405,7 @@ h1 {
 
 @media (min-width: 1200px) and (min-height: 1000px) {
   .about-section .about-section-image-container {
-    background: url("../images/DSC01420.jpg") center no-repeat;
+    background: url("../images/3.jpeg") center no-repeat;
     opacity: 0.5;
     filter: blur(1px);
     background-size: cover;
@@ -460,12 +464,58 @@ h1 {
 }
 /* upcoming */
 .upcoming-section {
-  background: beige;
+  background: rgb(0, 0, 0);
+  border-top: 1px solid rgb(214, 163, 120);
+}
+.upcoming-section .upcoming-section-container {
+  position: relative;
+  height: 100%;
+  padding: 5%;
+}
+.upcoming-section .upcoming-section-title {
+  position: relative;
+  margin: auto;
+  text-align: left;
+  padding: 1rem 1rem 0.5rem 1rem;
+  width: -moz-max-content;
+  width: max-content;
+  color: rgb(119, 197, 213);
+}
+.upcoming-section .upcoming-section-title h2 {
+  font-size: 6rem;
+  letter-spacing: 0.5rem;
 }
 
 /* gallery */
 .gallery-section {
-  background-color: cadetblue;
+  background: rgb(0, 0, 0);
+  border-top: 1px solid rgb(214, 163, 120);
+}
+.gallery-section .gallery-section-container {
+  position: relative;
+  height: 100%;
+  padding: 5%;
+}
+.gallery-section .gallery-section-title {
+  position: relative;
+  margin: auto;
+  text-align: left;
+  padding: 1rem 1rem 0.5rem 1rem;
+  width: -moz-max-content;
+  width: max-content;
+  color: rgb(119, 197, 213);
+}
+.gallery-section .gallery-section-title h2 {
+  font-size: 4rem;
+  letter-spacing: 0.5rem;
+}
+.gallery-section .gallery-section-title h2 ::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  border-right: 1px solid rgb(119, 197, 213);
 }
 
 /* schedule */

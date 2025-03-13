@@ -25,6 +25,7 @@
         & a {
             color: $main-title-color;
             font-size: 3rem;
+            letter-spacing: 0.2rem;
             text-decoration: none;
         }
     }
@@ -37,6 +38,7 @@
 
         & li {
             margin-inline: 1rem;
+            letter-spacing: 0.050rem;
         }
 
         & a {
