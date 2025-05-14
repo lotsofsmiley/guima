@@ -371,6 +371,7 @@ h1 {
   max-height: 100%;
   text-align: justify;
   z-index: 2;
+  text-shadow: 10px 5px rgb(0, 0, 0);
 }
 .about-section .about-section-description::before {
   content: "";
@@ -414,7 +415,7 @@ h1 {
     right: 5%;
     height: 80%;
     max-height: 80%;
-    width: 450px;
+    width: 550px;
     float: right;
     z-index: 1;
   }
@@ -517,6 +518,31 @@ h1 {
   right: 100%;
   border-right: 1px solid rgb(119, 197, 213);
 }
+.gallery-section .gallery-section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200 px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 0 5%;
+  height: 100%;
+}
+.gallery-section .gallery-section-grid > div {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+.gallery-section .gallery-section-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+.gallery-section .gallery-section-grid img:hover {
+  transform: scale(1.05);
+}
 
 /* schedule */
 .schedule-section {
@@ -525,7 +551,7 @@ h1 {
 
 /* store */
 .store-section {
-  background-color: cornflowerblue;
+  display: none;
 }
 
 /* footer *//*# sourceMappingURL=main.css.map */
