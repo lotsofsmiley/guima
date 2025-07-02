@@ -33,33 +33,24 @@
     }
 
     #{&}-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200 px, 1fr));
-        gap: 1rem;
         margin-top: 2rem;
         padding: 0 5%;
         height: 100%;
 
-        & > div {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+        &-item {
+            width: 350px;
+            height: auto;
+            margin: 0.5rem;
         }
-
+    
         & img {
             width: 100%;
             height: auto;
-            border-radius: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
         }
-
+    
         & img:hover {
             transform: scale(1.05);
         }
-
-        
     }
 }

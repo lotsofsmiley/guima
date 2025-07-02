@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
   
+  var $grid = $('.gallery-section-grid');
+  $grid.imagesLoaded(function () {
+    $grid.masonry({
+      itemSelector: '.gallery-section-grid-item',
+      columnWidth: '.gallery-section-grid-item',
+      percentPosition: true
+    });
+    $grid.masonry('layout');
+  });
+
     const article = document.querySelector('article');
     article.addEventListener('scroll', function () {
         if (article.scrollTop > 0) {
@@ -76,3 +86,5 @@ document.addEventListener('click', function(event) {
         closeMenu();
     }
 });
+
+
