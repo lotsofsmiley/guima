@@ -48,13 +48,15 @@ body {
     display: block;
     content: " ";
     height: 10vh;
-    /* Give height of your fixed element */
     margin-top: -10vh;
-    /* Give negative margin of your fixed element */
     visibility: hidden;
     pointer-events: none;
   }
 }
+.non-snapable-section {
+  scroll-snap-align: none;
+}
+
 .spch {
   font-family: "dxgotha";
   font-weight: 200;
@@ -489,12 +491,15 @@ h1 {
 
 /* gallery */
 .gallery-section {
+  min-height: -moz-max-content;
+  min-height: max-content;
+  height: auto;
   background: rgb(0, 0, 0);
   border-top: 1px solid rgb(214, 163, 120);
 }
 .gallery-section .gallery-section-container {
   position: relative;
-  height: 100%;
+  height: auto;
   padding: 5%;
 }
 .gallery-section .gallery-section-title {
@@ -534,7 +539,7 @@ h1 {
   transition: transform 0.3s ease;
 }
 .gallery-section .gallery-section-grid img:hover {
-  transform: scale(1.05);
+  transform: scale(1.025);
 }
 
 /* schedule */

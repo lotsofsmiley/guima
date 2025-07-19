@@ -53,12 +53,14 @@ body {
         display: block;
         content: " ";
         height: 10vh;
-        /* Give height of your fixed element */
         margin-top: -10vh;
-        /* Give negative margin of your fixed element */
         visibility: hidden;
         pointer-events: none;
     }
+}
+
+.non-snapable-section {
+    scroll-snap-align: none;
 }
 
 

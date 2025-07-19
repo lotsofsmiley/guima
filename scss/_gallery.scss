@@ -1,9 +1,12 @@
 .gallery-section {
+    min-height: max-content;
+    height: auto;
     background: $main-background;
     border-top: 1px solid $sec-title-color;
+
     #{&}-container {
         position: relative;
-        height: 100%;
+        height: auto;
         padding: 5%;
     }
 
@@ -50,7 +53,7 @@
         }
     
         & img:hover {
-            transform: scale(1.05);
+            transform: scale(1.025);
         }
     }
 }
