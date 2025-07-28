@@ -1,15 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
-  
+  /*
   var $grid = $('.gallery-section-grid');
   $grid.imagesLoaded(function () {
     $grid.masonry({
       itemSelector: '.gallery-section-grid-item',
       columnWidth: '.gallery-section-grid-item',
-      percentPosition: true
+      percentPosition: true,
+      gutter: 20,
+      horizontalOrder: true,
+      fitWidth: true,
     });
     $grid.masonry('layout');
   });
-
+  */
     const article = document.querySelector('article');
     article.addEventListener('scroll', function () {
         if (article.scrollTop > 0) {
