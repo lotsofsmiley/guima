@@ -69,7 +69,7 @@ const thumbs = await Promise.all(products.map((p) => getImage({ src: p.image, wi
 
               <button class="btn btn--sky mt-auto w-full" type="button" data-add-to-cart disabled={!buyable}>
                 <ShoppingBag size={16} stroke-width={2} />
-                {buyable ? 'Adicionar ao carrinho' : 'Brevemente'}
+                {buyable ? 'Adicionar ao carrinho' : 'Em breve'}
               </button>
             </div>
           </li>

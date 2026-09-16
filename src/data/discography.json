@@ -7,11 +7,11 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/97/64/95/9764956c-a0dc-25b1-90ac-e78de56c609f/0.jpg/600x600bb.jpg",
     "spotifyId": "5T6l2v4ZH4nBgqQGYN7Ooy",
     "spotifyUrl": "https://open.spotify.com/track/5T6l2v4ZH4nBgqQGYN7Ooy",
     "appleUrl": "https://music.apple.com/pt/album/som-do-vinho/6794421892",
-    "youtubeId": "fhoiSeUwJig"
+    "youtubeId": "fhoiSeUwJig",
+    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/97/64/95/9764956c-a0dc-25b1-90ac-e78de56c609f/0.jpg/600x600bb.jpg"
   },
   {
     "id": "no-mapa",
@@ -22,12 +22,12 @@
       "Vilas Boas",
       "GUIMA"
     ],
-    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/eb/79/2d/eb792dfa-fa56-d6c1-6d50-75616d2f2e0c/0.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/pt/album/no-mapa/1895767042",
     "note": "em \"Jab\", de Vilas Boas",
     "spotifyId": "6tUzAVfFr6MatWppBtboxi",
     "spotifyUrl": "https://open.spotify.com/track/6tUzAVfFr6MatWppBtboxi",
-    "youtubeId": "_iBAg1VAsFY"
+    "youtubeId": "_iBAg1VAsFY",
+    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/eb/79/2d/eb792dfa-fa56-d6c1-6d50-75616d2f2e0c/0.jpg/600x600bb.jpg"
   },
   {
     "id": "montra",
@@ -39,9 +39,9 @@
       "$TAG ONE",
       "KEI"
     ],
-    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f9/4a/7c/f94a7cc0-f3e7-29bd-5d26-1eb8d7b76f5f/0.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/pt/album/montra-feat-%24tag-one-kei/1625601993",
-    "youtubeId": "gHtlECja3yo"
+    "youtubeId": "gHtlECja3yo",
+    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f9/4a/7c/f94a7cc0-f3e7-29bd-5d26-1eb8d7b76f5f/0.jpg/600x600bb.jpg"
   },
   {
     "id": "au-revoir-3",
@@ -51,9 +51,9 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a0/d5/8b/a0d58b46-d6e2-5169-0073-a54f8002eeda/0.jpg/600x600bb.jpg",
     "appleUrl": "https://music.apple.com/pt/album/au-revoir-3/1590423536",
-    "youtubeId": "vGkkDi3J4Y0"
+    "youtubeId": "vGkkDi3J4Y0",
+    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a0/d5/8b/a0d58b46-d6e2-5169-0073-a54f8002eeda/0.jpg/600x600bb.jpg"
   },
   {
     "id": "nique-ta-mere",
@@ -64,9 +64,9 @@
       "GUIMA",
       "NAMELESS"
     ],
-    "cover": "https://i.ytimg.com/vi/h-WvNER0qMQ/maxresdefault.jpg",
     "youtubeId": "h-WvNER0qMQ",
-    "note": "Prod. K1X · estreia 17/09"
+    "note": "Prod. K1X · estreia 17/09",
+    "coverSource": "https://i.ytimg.com/vi/h-WvNER0qMQ/maxresdefault.jpg"
   },
   {
     "id": "um-sonho-de-miudo-hard-club",
@@ -76,9 +76,9 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/TxdHo1GtMCg/maxresdefault.jpg",
     "youtubeId": "TxdHo1GtMCg",
-    "note": "Ao vivo no Hard Club · apresentação Nova Era"
+    "note": "Ao vivo no Hard Club · apresentação Nova Era",
+    "coverSource": "https://i.ytimg.com/vi/TxdHo1GtMCg/maxresdefault.jpg"
   },
   {
     "id": "au-revoir-6",
@@ -88,8 +88,8 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/7Bom33yZueA/hqdefault.jpg",
-    "youtubeId": "7Bom33yZueA"
+    "youtubeId": "7Bom33yZueA",
+    "coverSource": "https://i.ytimg.com/vi/7Bom33yZueA/hqdefault.jpg"
   },
   {
     "id": "au-revoir-5",
@@ -99,8 +99,8 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/5_G7f4xQRPI/maxresdefault.jpg",
-    "youtubeId": "5_G7f4xQRPI"
+    "youtubeId": "5_G7f4xQRPI",
+    "coverSource": "https://i.ytimg.com/vi/5_G7f4xQRPI/maxresdefault.jpg"
   },
   {
     "id": "au-revoir-4",
@@ -110,8 +110,8 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/cahW8gNtdfQ/maxresdefault.jpg",
-    "youtubeId": "cahW8gNtdfQ"
+    "youtubeId": "cahW8gNtdfQ",
+    "coverSource": "https://i.ytimg.com/vi/cahW8gNtdfQ/maxresdefault.jpg"
   },
   {
     "id": "aligne",
@@ -121,8 +121,8 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/TQKMo8eDZYc/maxresdefault.jpg",
-    "youtubeId": "TQKMo8eDZYc"
+    "youtubeId": "TQKMo8eDZYc",
+    "coverSource": "https://i.ytimg.com/vi/TQKMo8eDZYc/maxresdefault.jpg"
   },
   {
     "id": "au-revoir-2",
@@ -132,8 +132,8 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/aOScGo9H9dQ/maxresdefault.jpg",
-    "youtubeId": "aOScGo9H9dQ"
+    "youtubeId": "aOScGo9H9dQ",
+    "coverSource": "https://i.ytimg.com/vi/aOScGo9H9dQ/maxresdefault.jpg"
   },
   {
     "id": "au-revoir-1",
@@ -143,7 +143,7 @@
     "artists": [
       "GUIMA"
     ],
-    "cover": "https://i.ytimg.com/vi/vcTbpGE9Dec/maxresdefault.jpg",
-    "youtubeId": "vcTbpGE9Dec"
+    "youtubeId": "vcTbpGE9Dec",
+    "coverSource": "https://i.ytimg.com/vi/vcTbpGE9Dec/maxresdefault.jpg"
   }
 ]

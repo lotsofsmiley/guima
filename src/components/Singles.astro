@@ -1,7 +1,8 @@
 ---
+import { Image, getImage } from 'astro:assets';
 import { Play, X } from 'lucide-astro';
 import BrandIcon from './BrandIcon.astro';
-import { releases, yearOf, typeLabel } from '../data/discography';
+import { releases, yearOf, typeLabel, coverOf } from '../data/discography';
 import type { PlayableTrack } from '../stores/player';
 
 /**
@@ -10,13 +11,16 @@ import type { PlayableTrack } from '../stores/player';
  *   - YouTube-only videos        → open in a modal; the iframe is only created on click,
  *                                  so no YouTube request (or cookie) happens before that.
  */
+const thumbs = await Promise.all(releases.map((r) => getImage({ src: coverOf(r), width: 128, height: 128, format: 'webp' })));
+
 const queue: PlayableTrack[] = releases
-  .filter((r) => r.playSpotifyId ?? r.spotifyId)
-  .map((r) => ({
+  .map((r, i) => ({ r, cover: thumbs[i].src }))
+  .filter(({ r }) => r.playSpotifyId ?? r.spotifyId)
+  .map(({ r, cover }) => ({
     id: `rel-${r.id}`,
     title: r.title,
     artists: r.artists,
-    cover: r.cover,
+    cover,
     spotifyId: r.playSpotifyId ?? r.spotifyId,
     youtubeId: r.youtubeId,
     links: {
@@ -50,15 +54,13 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
           return (
             <li class="release group w-[72vw] shrink-0 snap-start sm:w-[46vw] md:w-auto" data-release-id={`rel-${r.id}`}>
               <div class="relative aspect-square overflow-hidden bg-ink-800">
-                <img
-                  src={r.cover}
+                <Image
+                  src={coverOf(r)}
                   alt={`${isVideo ? 'Miniatura' : 'Capa'} de ${r.title}`}
-                  width="600"
-                  height="600"
+                  widths={[320, 480, 640]}
+                  sizes="(min-width: 64rem) 22vw, (min-width: 48rem) 30vw, 72vw"
                   loading="lazy"
-                  decoding="async"
-                  class="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
-                  onerror={r.youtubeId && isVideo ? `this.onerror=null;this.src='https://i.ytimg.com/vi/${r.youtubeId}/hqdefault.jpg'` : undefined}
+                  class="release-cover h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
                 />
                 {(viaSpotify || viaVideo) && (
                   <button
@@ -112,6 +114,7 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
 <style>
   #singles-list { scrollbar-width: none; }
   #singles-list::-webkit-scrollbar { display: none; }
+  #singles-list :global(img.release-cover) { height: 100% !important; }
   .release.is-current h3 { color: var(--color-sky-300); }
   .release.is-current .release-play > span { opacity: 1; }
   dialog[open] { display: block; }

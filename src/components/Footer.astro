@@ -4,6 +4,7 @@ import BrandIcon from './BrandIcon.astro';
 import { site, socials, legal } from '../data/site';
 
 const year = new Date().getFullYear();
+const hasContactEmail = !legal.email.startsWith('[');
 const years = year > site.since ? `${site.since}–${year}` : String(site.since);
 
 const legalLinks = [
@@ -21,6 +22,15 @@ const legalLinks = [
         <Wordmark class="text-[clamp(3rem,10vw,6rem)] leading-none" />
         <p class="eyebrow mt-3">{site.tagline}</p>
       </div>
+      <div class="flex flex-col gap-4 md:items-end">
+      <p class="text-sm text-cream-500">
+        Bookings e imprensa:
+        {hasContactEmail ? (
+          <a class="text-cream-100 hover:text-sky-400" href={`mailto:${legal.email}`}>{legal.email}</a>
+        ) : (
+          <a class="text-cream-100 hover:text-sky-400" href={socials[0].href} target="_blank" rel="noopener">mensagem no Instagram</a>
+        )}
+      </p>
       <ul class="flex flex-wrap gap-2" aria-label="Redes sociais">
         {socials.map((s) => (
           <li>
@@ -36,6 +46,7 @@ const legalLinks = [
           </li>
         ))}
       </ul>
+      </div>
     </div>
 
     <div class="mt-12 grid gap-6 border-t border-ink-700 pt-6 text-sm text-cream-500 md:grid-cols-[1fr_auto] md:items-center">
@@ -47,10 +58,7 @@ const legalLinks = [
           <a class="hover:text-cream-100" href={legal.complaintsBook} target="_blank" rel="noopener">Livro de Reclamações</a>
         </li>
       </ul>
-      <p>
-        © {years} GUIMA · Desenvolvido por
-        <a class="text-buff-400 hover:text-sky-400" href={site.developer.url} target="_blank" rel="noopener">{site.developer.name}</a>
-      </p>
+      <p>© {years} GUIMA · Desenvolvido por <a class="text-buff-400 hover:text-sky-400" href={site.developer.url} target="_blank" rel="noopener">{site.developer.name}</a></p>
     </div>
   </div>
 </footer>

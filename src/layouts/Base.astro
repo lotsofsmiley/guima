@@ -55,9 +55,11 @@ const ld = jsonLd
 ---
 
 <!doctype html>
-<html lang="pt-PT" class="js">
+<html lang="pt-PT">
   <head>
     <meta charset="UTF-8" />
+    <!-- Reveal animations only exist when JS runs: without this class the content is simply visible. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -118,5 +120,6 @@ const ld = jsonLd
 </html>
 
 <style is:global>
-  body.has-dock { padding-bottom: 7.5rem; }
+  /* --dock-h is measured by the player dock (ResizeObserver); 0 when closed */
+  body { padding-bottom: var(--dock-h, 0px); }
 </style>

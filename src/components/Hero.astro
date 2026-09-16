@@ -3,7 +3,14 @@ import { Picture } from 'astro:assets';
 import { ChevronDown, Play } from 'lucide-astro';
 import hero from '../assets/hero/hero-nova-era.jpg';
 import { album } from '../data/album';
+import { products } from '../data/products';
+import { socials } from '../data/site';
 import { formatDate } from '../lib/format';
+
+// Second CTA only points at the store once something is actually purchasable;
+// a button into a wall of "Em breve" is worse than no button.
+const storeLive = products.some((p) => !p.draft);
+const instagram = socials.find((s) => s.id === 'instagram')!;
 ---
 
 <section id="topo" class="relative flex min-h-svh items-end overflow-hidden bg-ink-950" aria-label="Nova Era">
@@ -30,13 +37,17 @@ import { formatDate } from '../lib/format';
       <span class="sw">“</span><span class="sw">N</span>OVA <span class="sw">E</span>RA<span class="sw">”</span>
     </h1>
     <p class="mt-5 max-w-xl text-lead text-cream-300 text-pretty">
-      Treze faixas para conquistar a cidade e escrever o nome nela. Produção de Vilas Boas. Do Porto para o mundo.
+      Treze faixas para conquistar a cidade e escrever o nome nela. Produção de Vilas Boas, editora 2ºPiso.
     </p>
     <div class="mt-8 flex flex-wrap gap-3">
       <button class="btn btn--solid" type="button" data-play-album>
         <Play size={16} stroke-width={2.25} /> Ouvir agora
       </button>
-      <a class="btn" href="#loja">Comprar o CD</a>
+      {storeLive ? (
+        <a class="btn" href="#loja">Comprar o CD</a>
+      ) : (
+        <a class="btn" href={instagram.href} target="_blank" rel="noopener">Seguir no Instagram</a>
+      )}
     </div>
   </div>
 
@@ -57,7 +68,7 @@ import { formatDate } from '../lib/format';
     width: 100% !important;
     height: 100% !important;
     object-fit: cover;
-    object-position: 62% 28%;
+    object-position: 40% 18%; /* phone: keep the face in frame */
   }
   @media (min-width: 48rem) {
     .hero-media :global(img) { object-position: 50% 30%; }

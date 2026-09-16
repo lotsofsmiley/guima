@@ -63,6 +63,7 @@ const large = await Promise.all(photos.map((p) => getImage({ src: p, width: 1800
     <div class="relative flex h-full items-center justify-center">
       <img class="max-h-[92vh] max-w-[94vw] object-contain" alt="" data-lightbox-img />
       <button class="icon-btn absolute right-3 top-3 bg-ink-900/70" type="button" data-lb-close aria-label="Fechar"><X size={26} /></button>
+      <p class="tabular absolute bottom-3 left-1/2 -translate-x-1/2 bg-ink-900/70 px-3 py-1 text-xs tracking-[0.16em] text-cream-300" data-lb-counter aria-live="polite"></p>
       <button class="icon-btn absolute left-2 top-1/2 -translate-y-1/2 bg-ink-900/70" type="button" data-lb-prev aria-label="Anterior"><ChevronLeft size={28} /></button>
       <button class="icon-btn absolute right-2 top-1/2 -translate-y-1/2 bg-ink-900/70" type="button" data-lb-next aria-label="Seguinte"><ChevronRight size={28} /></button>
     </div>
@@ -81,12 +82,21 @@ const large = await Promise.all(photos.map((p) => getImage({ src: p, width: 1800
   const img = dialog.querySelector<HTMLImageElement>('[data-lightbox-img]')!;
   const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lightbox]'));
   const sources = buttons.map((b) => b.dataset.large!);
+  const counter = dialog.querySelector<HTMLElement>('[data-lb-counter]')!;
   let i = 0;
   const show = (n: number) => {
     i = (n + sources.length) % sources.length;
     img.src = sources[i];
     img.alt = `GUIMA — fotografia ${i + 1}`;
+    counter.textContent = `${i + 1} / ${sources.length}`;
   };
+  // swipe left/right on touch screens
+  let touchX = 0;
+  dialog.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  dialog.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+  }, { passive: true });
   buttons.forEach((b, n) => b.addEventListener('click', () => { show(n); dialog.showModal(); }));
   dialog.querySelector('[data-lb-close]')!.addEventListener('click', () => dialog.close());
   dialog.querySelector('[data-lb-prev]')!.addEventListener('click', () => show(i - 1));
