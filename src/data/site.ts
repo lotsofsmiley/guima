@@ -17,15 +17,15 @@ export const site = {
   developer: { name: 'Filipe Guimarães', url: 'https://guimaraes.systems' },
 } as const;
 
-export type NavItem = { href: string; label: string; swap?: number };
+export type NavItem = { href: string; label: string };
 
 /**
  * In-page sections, in scroll order. Hrefs are absolute (`/#id`) so the nav also
- * works from the legal pages. `swap` = index of the letter rendered in blackletter.
+ * works from the legal pages. Letters between pipes are rendered in blackletter ("|N|ova |E|ra").
  */
 export const nav: NavItem[] = [
   { href: '/#sobre', label: 'Sobre' },
-  { href: '/#nova-era', label: 'Nova Era', swap: 0 },
+  { href: '/#nova-era', label: '|N|ova |E|ra' },
   { href: '/#singles', label: 'Singles' },
   { href: '/#galeria', label: 'Galeria' },
   { href: '/#loja', label: 'Loja' },

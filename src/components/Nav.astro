@@ -6,11 +6,8 @@ import { nav, socials } from '../data/site';
 import { brandIcons } from '../lib/icons';
 import { swapHtml } from '../lib/format';
 
-/** Nav labels carry the swap letter too ("Nova Era" → "|N|ova Era"). */
-const labelHtml = (label: string, swap?: number) =>
-  swap === undefined
-    ? label
-    : swapHtml(label.slice(0, swap) + '|' + label[swap] + '|' + label.slice(swap + 1));
+/** Nav labels may carry swap-letter markup ("|N|ova |E|ra"). */
+const labelHtml = (label: string) => (label.includes('|') ? swapHtml(label) : label);
 ---
 
 <header id="site-nav" class="fixed inset-x-0 top-0 z-40 h-nav transition-colors duration-300" data-scrolled="false">
@@ -21,7 +18,7 @@ const labelHtml = (label: string, swap?: number) =>
       <ul class="flex items-center gap-8">
         {nav.map((item) => (
           <li>
-            <a class="nav-link" href={item.href} data-nav-link set:html={labelHtml(item.label, item.swap)} />
+            <a class="nav-link" href={item.href} data-nav-link set:html={labelHtml(item.label)} />
           </li>
         ))}
       </ul>
@@ -78,7 +75,7 @@ const labelHtml = (label: string, swap?: number) =>
                 href={item.href}
                 data-nav-link
                 data-menu-link
-                set:html={labelHtml(item.label, item.swap)}
+                set:html={labelHtml(item.label)}
               />
             </li>
           ))}
