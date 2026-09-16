@@ -1,0 +1,11 @@
+// Cloudflare Workers (static assets only — no Worker script; Astro output is plain HTML).
+// The Workers Builds pipeline runs `npm run build` then `npx wrangler deploy`, which reads this file.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "guima",
+  "compatibility_date": "2026-09-16",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
