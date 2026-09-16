@@ -1,0 +1,207 @@
+/*
+ * GUIMA — global stylesheet
+ *
+ * One source of truth for the visual system:
+ *   - palette: ink (near-black), cream (text), sky (brand blue), buff (warm accent)
+ *   - type: Sofia Sans Extra Condensed for text, League Gothic for display + a blackletter used ONLY for
+ *     "swap letters" (the M in GUIMA, first letters of titles) — that swap is the brand.
+ *   - Tailwind v4: tokens declared in @theme become utilities (bg-ink, text-sky-400, font-black…)
+ */
+
+/* Self-hosted fonts (no Google Fonts requests → no visitor IP leak, no consent question). */
+@import "@fontsource-variable/sofia-sans-extra-condensed";
+@import "@fontsource-variable/league-gothic";
+@import "@fontsource/pirata-one";
+@import "tailwindcss";
+
+@theme {
+  /* Type */
+  --font-condensed: "Sofia Sans Extra Condensed Variable", "Arial Narrow", sans-serif;
+  --font-display: "League Gothic Variable", "Sofia Sans Extra Condensed Variable", "Arial Narrow", Impact, sans-serif;
+  --font-black: "Pirata One", "UnifrakturMaguntia", serif;
+
+  --text-display: clamp(3.5rem, 2rem + 8vw, 9rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: 0.04em;
+
+  --text-headline: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: 0.03em;
+
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+
+  /* Palette */
+  --color-ink-950: #000000;
+  --color-ink-900: #0b0b0c;
+  --color-ink-800: #141416;
+  --color-ink-700: #1f1f23;
+  --color-ink-600: #2c2c31;
+
+  --color-cream-50: #fbf9f4;
+  --color-cream-100: #f2ede4;
+  --color-cream-300: #cfc8bb;
+  --color-cream-500: #9a9388;
+
+  --color-sky-300: #a6dbe6;
+  --color-sky-400: #77c5d5;
+  --color-sky-500: #4fb0c4;
+  --color-sky-700: #2b6f7c;
+
+  --color-buff-300: #e6c4a2;
+  --color-buff-400: #d6a378;
+  --color-buff-500: #c48a56;
+
+  /* Layout */
+  --spacing-nav: 4.5rem; /* fixed navbar height; also the scroll offset for #anchors */
+  --container-site: 75rem; /* 1200px */
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* The document scrolls (not an inner wrapper): anchors, find-in-page, print and
+       share previews all work. The fixed nav is compensated with scroll-padding. */
+    scroll-padding-top: var(--spacing-nav);
+    background: var(--color-ink-900);
+    color: var(--color-cream-100);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    font-family: var(--font-condensed);
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    overflow-x: clip;
+  }
+  [id] { scroll-margin-top: var(--spacing-nav); }
+
+  /* Display face has a single weight: never let a utility fake-bold it. */
+  h1, h2 { font-family: var(--font-display); font-weight: 400; }
+
+  ::selection { background: var(--color-sky-400); color: var(--color-ink-950); }
+
+  /* Keyboard focus is visible and on-brand; mouse clicks don't show it. */
+  :focus-visible {
+    outline: 2px solid var(--color-sky-400);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Thin, dark scrollbar (WebKit) — keeps the black frame on desktop. */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--color-ink-600); border-radius: 999px; border: 2px solid var(--color-ink-900); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-sky-700); }
+}
+
+@layer components {
+  /* Swap letter — the brand device. Blackletter glyph in sky blue, slightly larger so its
+     x-height matches the condensed caps around it. */
+  .sw {
+    font-family: var(--font-black);
+    font-weight: 400;
+    color: var(--color-sky-400);
+    font-size: 1.12em;
+    line-height: 0.8;
+    letter-spacing: 0;
+  }
+  .sw--cream { color: currentColor; }
+
+  .wrap {
+    width: 100%;
+    max-width: var(--container-site);
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 48rem) { .wrap { padding-inline: 2rem; } }
+
+  .section { padding-block: 5rem; }
+  @media (min-width: 48rem) { .section { padding-block: 7rem; } }
+
+  .eyebrow {
+    font-family: var(--font-condensed);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-buff-400);
+  }
+
+  .rule { border-top: 1px solid color-mix(in oklab, var(--color-buff-400) 35%, transparent); }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 2.75rem; padding: 0.5rem 1.25rem;
+    font-family: var(--font-condensed); font-weight: 500; font-size: 0.9375rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: 1px solid var(--color-cream-100); color: var(--color-cream-100);
+    background: transparent; cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s var(--ease-out-expo);
+  }
+  .btn:hover { background: var(--color-cream-100); color: var(--color-ink-950); }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn:disabled:hover { background: transparent; color: var(--color-cream-100); }
+  .btn--sky { border-color: var(--color-sky-400); color: var(--color-sky-400); }
+  .btn--sky:hover { background: var(--color-sky-400); color: var(--color-ink-950); }
+  .btn--solid { background: var(--color-cream-100); color: var(--color-ink-950); }
+  .btn--solid:hover { background: var(--color-sky-400); border-color: var(--color-sky-400); }
+  .btn--icon { min-width: 2.75rem; padding: 0.5rem; }
+
+  /* Icon-only controls (nav, player) */
+  .icon-btn {
+    display: inline-grid; place-items: center;
+    width: 2.75rem; height: 2.75rem; border-radius: 999px;
+    color: var(--color-cream-100); background: transparent; border: 0; cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .icon-btn:hover { background: color-mix(in oklab, var(--color-cream-100) 10%, transparent); }
+
+  /* Nav link with the underline-from-left reveal */
+  .nav-link {
+    position: relative; display: inline-block; padding-block: 0.25rem;
+    font-weight: 500; font-size: 0.9375rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-cream-100); text-decoration: none;
+  }
+  .nav-link::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: var(--color-buff-400); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s var(--ease-out-expo);
+  }
+  .nav-link:hover::after, .nav-link[aria-current="true"]::after { transform: scaleX(1); }
+
+  /* Vertical "chapter" rule used next to headings — from the original design */
+  .chapter-rule {
+    position: relative; padding-left: 1.25rem;
+  }
+  .chapter-rule::before {
+    content: ""; position: absolute; left: 0; top: 0.35em; bottom: 0.2em; width: 2px;
+    background: var(--color-buff-400);
+  }
+
+  /* Track row equalizer (playing state) */
+  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+  .eq i { display: block; width: 3px; background: var(--color-sky-400); animation: eq 0.9s ease-in-out infinite; }
+  .eq i:nth-child(2) { animation-delay: 0.15s; } .eq i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+  @media (prefers-reduced-motion: reduce) { .eq i { animation: none; height: 8px; } }
+
+  /* Reveal-on-scroll (progressive: content is visible without JS) */
+  .reveal { opacity: 1; transform: none; }
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .tabular { font-variant-numeric: tabular-nums; }
+}

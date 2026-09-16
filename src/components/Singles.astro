@@ -1,0 +1,157 @@
+---
+import { Play, X } from 'lucide-astro';
+import BrandIcon from './BrandIcon.astro';
+import { releases, yearOf, typeLabel } from '../data/discography';
+import type { PlayableTrack } from '../stores/player';
+
+/**
+ * Two kinds of card share one grid:
+ *   - releases with a Spotify id → play in the bottom dock (same player as the album)
+ *   - YouTube-only videos        → open in a modal; the iframe is only created on click,
+ *                                  so no YouTube request (or cookie) happens before that.
+ */
+const queue: PlayableTrack[] = releases
+  .filter((r) => r.playSpotifyId ?? r.spotifyId)
+  .map((r) => ({
+    id: `rel-${r.id}`,
+    title: r.title,
+    artists: r.artists,
+    cover: r.cover,
+    spotifyId: r.playSpotifyId ?? r.spotifyId,
+    youtubeId: r.youtubeId,
+    links: {
+      spotify: r.spotifyUrl,
+      youtube: r.youtubeId ? `https://www.youtube.com/watch?v=${r.youtubeId}` : undefined,
+      apple: r.appleUrl,
+    },
+  }));
+const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
+---
+
+{releases.length > 0 && (
+  <section id="singles" class="section rule bg-ink-900">
+    <div class="wrap">
+      <div class="reveal flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="eyebrow mb-4">Discografia</p>
+          <h2 class="text-headline uppercase text-cream-100"><span class="sw">S</span>INGLES <span class="text-cream-500">&amp;</span> <span class="sw">F</span>REESTYLES</h2>
+        </div>
+        <p class="max-w-sm text-cream-500 text-pretty">O que saiu antes e depois do álbum. Carrega para ouvir ou ver aqui mesmo.</p>
+      </div>
+    </div>
+
+    <!-- Horizontal strip on phones (snap), grid on desktop -->
+    <div class="mt-10">
+      <ul class="wrap reveal flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible lg:grid-cols-4" id="singles-list">
+        {releases.map((r) => {
+          const viaSpotify = Boolean(r.playSpotifyId ?? r.spotifyId);
+          const viaVideo = !viaSpotify && Boolean(r.youtubeId);
+          const isVideo = r.type === 'video' || r.type === 'live';
+          return (
+            <li class="release group w-[72vw] shrink-0 snap-start sm:w-[46vw] md:w-auto" data-release-id={`rel-${r.id}`}>
+              <div class="relative aspect-square overflow-hidden bg-ink-800">
+                <img
+                  src={r.cover}
+                  alt={`${isVideo ? 'Miniatura' : 'Capa'} de ${r.title}`}
+                  width="600"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
+                  onerror={r.youtubeId && isVideo ? `this.onerror=null;this.src='https://i.ytimg.com/vi/${r.youtubeId}/hqdefault.jpg'` : undefined}
+                />
+                {(viaSpotify || viaVideo) && (
+                  <button
+                    class="release-play absolute inset-0 grid place-items-center bg-ink-950/0 transition-colors hover:bg-ink-950/40 focus-visible:bg-ink-950/40"
+                    type="button"
+                    data-play-release={viaSpotify ? `rel-${r.id}` : undefined}
+                    data-play-video={viaVideo ? r.youtubeId : undefined}
+                    data-video-title={viaVideo ? r.title : undefined}
+                    aria-label={`${viaSpotify ? 'Reproduzir' : 'Ver o vídeo de'} ${r.title}`}
+                  >
+                    <span class="grid h-14 w-14 place-items-center rounded-full bg-cream-100 text-ink-950 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                      <Play size={22} stroke-width={2.25} class="translate-x-0.5" />
+                    </span>
+                  </button>
+                )}
+                <span class="pointer-events-none absolute left-3 top-3 bg-ink-950/75 px-2 py-0.5 text-[0.65rem] uppercase tracking-[0.18em] text-buff-300">
+                  {typeLabel[r.type]}
+                </span>
+              </div>
+              <div class="mt-3 flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <h3 class="truncate text-lg font-medium uppercase tracking-wide text-cream-100">{r.title}</h3>
+                  <p class="truncate text-xs uppercase tracking-[0.14em] text-cream-500">
+                    {yearOf(r)}{r.artists.length > 1 && ` · ${r.artists.filter((a) => a !== 'GUIMA').join(', ')}`}
+                  </p>
+                  {r.note && <p class="mt-0.5 truncate text-xs text-cream-500">{r.note}</p>}
+                </div>
+                <ul class="flex shrink-0 gap-0.5 text-buff-400">
+                  {r.spotifyUrl && <li><a class="icon-btn h-9 w-9" href={r.spotifyUrl} target="_blank" rel="noopener" aria-label="Spotify"><BrandIcon name="spotify" size={16} /></a></li>}
+                  {r.youtubeId && <li><a class="icon-btn h-9 w-9" href={`https://www.youtube.com/watch?v=${r.youtubeId}`} target="_blank" rel="noopener" aria-label="YouTube"><BrandIcon name="youtube" size={16} /></a></li>}
+                  {r.appleUrl && <li><a class="icon-btn h-9 w-9" href={r.appleUrl} target="_blank" rel="noopener" aria-label="Apple Music"><BrandIcon name="applemusic" size={16} /></a></li>}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+
+    <dialog id="video-modal" class="m-0 h-dvh max-h-none w-full max-w-none bg-ink-950/95 p-0 text-cream-100 backdrop:bg-ink-950/90" aria-label="Vídeo">
+      <div class="relative flex h-full items-center justify-center p-4">
+        <div class="aspect-video w-full max-w-5xl bg-ink-900" data-video-frame></div>
+        <button class="icon-btn absolute right-3 top-3 bg-ink-900/70" type="button" data-video-close aria-label="Fechar vídeo"><X size={26} /></button>
+      </div>
+    </dialog>
+
+    <script type="application/json" id="singles-queue" set:html={queueJson} />
+  </section>
+)}
+
+<style>
+  #singles-list { scrollbar-width: none; }
+  #singles-list::-webkit-scrollbar { display: none; }
+  .release.is-current h3 { color: var(--color-sky-300); }
+  .release.is-current .release-play > span { opacity: 1; }
+  dialog[open] { display: block; }
+  dialog { display: none; }
+</style>
+
+<script>
+  import { playTrack, currentTrack, intent, type PlayableTrack } from '../stores/player';
+
+  const el = document.getElementById('singles-queue');
+  if (el) {
+    const queue: PlayableTrack[] = JSON.parse(el.textContent!);
+    const byId = new Map(queue.map((t) => [t.id, t]));
+    document.querySelectorAll<HTMLButtonElement>('[data-play-release]').forEach((btn) =>
+      btn.addEventListener('click', () => playTrack(byId.get(btn.dataset.playRelease!)!, queue)),
+    );
+    const rows = Array.from(document.querySelectorAll<HTMLElement>('.release[data-release-id]'));
+    currentTrack.subscribe((t) => rows.forEach((r) => r.classList.toggle('is-current', r.dataset.releaseId === t?.id)));
+
+    // --- video modal (YouTube-only items). Iframe created on demand, removed on close.
+    const modal = document.getElementById('video-modal') as HTMLDialogElement;
+    const frame = modal.querySelector<HTMLElement>('[data-video-frame]')!;
+    const open = (id: string, title: string) => {
+      intent.set('pause'); // don't fight the audio dock
+      frame.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = title;
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.className = 'h-full w-full';
+      iframe.setAttribute('allowfullscreen', '');
+      frame.appendChild(iframe);
+      modal.showModal();
+    };
+    const close = () => { modal.close(); };
+    modal.addEventListener('close', () => { frame.innerHTML = ''; });
+    document.querySelectorAll<HTMLButtonElement>('[data-play-video]').forEach((btn) =>
+      btn.addEventListener('click', () => open(btn.dataset.playVideo!, btn.dataset.videoTitle ?? 'Vídeo')),
+    );
+    modal.querySelector('[data-video-close]')!.addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  }
+</script>

@@ -1,0 +1,56 @@
+---
+import Wordmark from './Wordmark.astro';
+import BrandIcon from './BrandIcon.astro';
+import { site, socials, legal } from '../data/site';
+
+const year = new Date().getFullYear();
+const years = year > site.since ? `${site.since}–${year}` : String(site.since);
+
+const legalLinks = [
+  { href: '/privacidade/', label: 'Privacidade' },
+  { href: '/termos/', label: 'Termos e condições' },
+  { href: '/envios-e-devolucoes/', label: 'Envios e devoluções' },
+  { href: '/cookies/', label: 'Cookies' },
+];
+---
+
+<footer id="contactos" class="rule bg-ink-950 pb-28 pt-16 md:pt-24">
+  <div class="wrap">
+    <div class="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <Wordmark class="text-[clamp(3rem,10vw,6rem)] leading-none" />
+        <p class="eyebrow mt-3">{site.tagline}</p>
+      </div>
+      <ul class="flex flex-wrap gap-2" aria-label="Redes sociais">
+        {socials.map((s) => (
+          <li>
+            <a
+              class="group flex items-center gap-2 border border-ink-600 px-4 py-2.5 text-sm uppercase tracking-[0.12em] text-cream-300 transition-colors hover:border-buff-400 hover:text-buff-300"
+              href={s.href}
+              target="_blank"
+              rel="noopener"
+            >
+              <BrandIcon name={s.id} size={16} class="text-buff-400" />
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-12 grid gap-6 border-t border-ink-700 pt-6 text-sm text-cream-500 md:grid-cols-[1fr_auto] md:items-center">
+      <ul class="flex flex-wrap gap-x-5 gap-y-2">
+        {legalLinks.map((l) => (
+          <li><a class="hover:text-cream-100" href={l.href}>{l.label}</a></li>
+        ))}
+        <li>
+          <a class="hover:text-cream-100" href={legal.complaintsBook} target="_blank" rel="noopener">Livro de Reclamações</a>
+        </li>
+      </ul>
+      <p>
+        © {years} GUIMA · Desenvolvido por
+        <a class="text-buff-400 hover:text-sky-400" href={site.developer.url} target="_blank" rel="noopener">{site.developer.name}</a>
+      </p>
+    </div>
+  </div>
+</footer>

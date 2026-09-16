@@ -1,0 +1,120 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/islands/CartDrawer';
+import PlayerDock from '../components/islands/PlayerDock';
+import { site, socials, hasLegalPlaceholders } from '../data/site';
+import { album, plainTitle } from '../data/album';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Path without origin, with trailing slash ("/" for home) */
+  path?: string;
+  ogImage?: string;
+  /** Home page emits the MusicGroup/MusicAlbum structured data */
+  jsonLd?: boolean;
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  path = '/',
+  ogImage = '/og.jpg',
+  jsonLd = false,
+} = Astro.props;
+
+const canonical = new URL(path, site.domain).toString();
+const ogUrl = new URL(ogImage, site.domain).toString();
+
+const ld = jsonLd
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'MusicGroup',
+      name: 'GUIMA',
+      url: site.domain,
+      genre: 'Hip-Hop',
+      foundingLocation: { '@type': 'Place', name: 'Vila Nova de Gaia, Portugal' },
+      sameAs: socials.map((s) => s.href),
+      album: {
+        '@type': 'MusicAlbum',
+        name: plainTitle(album.title),
+        datePublished: album.releaseDate,
+        byArtist: { '@type': 'MusicGroup', name: 'GUIMA' },
+        numTracks: album.tracks.length,
+        track: album.tracks.map((t) => ({
+          '@type': 'MusicRecording',
+          name: plainTitle(t.title),
+          position: t.n,
+          duration: `PT${Math.floor(t.durationMs / 60000)}M${Math.round((t.durationMs % 60000) / 1000)}S`,
+        })),
+      },
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang="pt-PT" class="js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="color-scheme" content="dark" />
+
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Share cards: this is what Instagram DMs / WhatsApp show when the link is pasted -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GUIMA" />
+    <meta property="og:locale" content="pt_PT" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+  </head>
+  <body class="bg-ink-900 text-cream-100">
+    <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-sky-400 focus:px-4 focus:py-2 focus:text-ink-950">Saltar para o conteúdo</a>
+    <Nav />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+
+    <CartDrawer client:idle />
+    <PlayerDock client:idle />
+
+    {import.meta.env.DEV && hasLegalPlaceholders && (
+      <div class="fixed bottom-2 left-2 z-50 bg-buff-400 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-ink-950">
+        Dev: dados legais do vendedor em falta (src/data/site.ts)
+      </div>
+    )}
+
+    <script>
+      // Reveal-on-scroll. Content is visible without JS; with JS it fades in once.
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }),
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.05 },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body.has-dock { padding-bottom: 7.5rem; }
+</style>

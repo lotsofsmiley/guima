@@ -1,0 +1,57 @@
+---
+import { Picture } from 'astro:assets';
+import portrait from '../assets/about/about-portrait.jpg';
+import Wordmark from './Wordmark.astro';
+---
+
+<section id="sobre" class="section rule bg-ink-900">
+  <div class="wrap grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20">
+    <div class="reveal">
+      <p class="eyebrow mb-4">Sobre</p>
+      <h2 class="chapter-rule text-headline uppercase text-cream-100">
+        Do <span class="text-buff-400">Underground</span> ao Palco
+      </h2>
+
+      <div class="mt-8 max-w-prose space-y-5 text-[1.125rem] leading-relaxed text-cream-300 text-pretty">
+        <p>
+          Nascido em 1998, em Vila Nova de Gaia, <Wordmark class="text-[1em]" /> sempre foi um ávido consumidor de
+          tudo o que envolvia a cultura hip hop. Entrou pelo break dance, que deu lugar ao graffiti — ainda ativo
+          hoje — até chegar ao rap. Todos estes elementos contribuíram para a personalidade irreverente e marcante
+          que é hoje.
+        </p>
+        <p>
+          Com uma trajetória marcada por duas mixtapes (“Introspeção” e “IV.XI”) e um EP (“Ma Devise”), assinados
+          com diferentes pseudónimos, chegou à identidade artística que assume atualmente: um rapper completo, com
+          intensidade, atitude e essência. A série de freestyles que tem lançado cruza rap, afro trap, club e drill,
+          com influências de rap francês, alemão e italiano.
+        </p>
+        <p>
+          Fora dos instrumentais, é um nome sonante nas batalhas de rap escritas em Portugal, que o solidificaram
+          como figura respeitada nesse universo. Em setembro de 2025 lançou o primeiro álbum,
+          <span class="text-cream-100"><span class="sw">“N</span>ova <span class="sw">E</span>ra<span class="sw">”</span></span>,
+          uma obra com estilo próprio, carregada de instrumentais vibrantes e rimas peculiares.
+        </p>
+      </div>
+    </div>
+
+    <figure class="reveal relative lg:mt-6">
+      <div class="relative aspect-[3/4] overflow-hidden bg-ink-800">
+        <Picture
+          src={portrait}
+          alt="GUIMA, retrato"
+          formats={['avif', 'webp']}
+          widths={[480, 768, 1024, 1600]}
+          sizes="(min-width: 64rem) 34vw, (min-width: 48rem) 60vw, 100vw"
+          loading="lazy"
+          class="h-full w-full object-cover"
+        />
+        <!-- blue tint, same family as the hero photo -->
+        <div class="pointer-events-none absolute inset-0 bg-sky-700/25 mix-blend-multiply"></div>
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 to-transparent"></div>
+      </div>
+      <figcaption class="mt-5 border-l-2 border-buff-400 pl-4 text-[1.5rem] font-medium uppercase leading-tight tracking-wide text-cream-100 md:text-[1.75rem]">
+        Nome forte, Sangue azul, Norte ao peito
+      </figcaption>
+    </figure>
+  </div>
+</section>
