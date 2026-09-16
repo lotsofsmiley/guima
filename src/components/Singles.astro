@@ -105,7 +105,7 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
       </div>
     </dialog>
 
-    <script type="application/json" id="singles-queue" set:html={queueJson} />
+    <script is:inline type="application/json" id="singles-queue" set:html={queueJson} />
   </section>
 )}
 

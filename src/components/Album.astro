@@ -138,7 +138,7 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
     </div>
   </div>
 
-  <script type="application/json" id="album-queue" set:html={queueJson} />
+  <script is:inline type="application/json" id="album-queue" set:html={queueJson} />
 </section>
 
 <style>

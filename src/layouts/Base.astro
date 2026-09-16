@@ -85,7 +85,7 @@ const ld = jsonLd
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogUrl} />
 
-    {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+    {ld && <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />}
   </head>
   <body class="bg-ink-900 text-cream-100">
     <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-sky-400 focus:px-4 focus:py-2 focus:text-ink-950">Saltar para o conteúdo</a>
@@ -95,8 +95,10 @@ const ld = jsonLd
     </main>
     <Footer />
 
-    <CartDrawer client:idle />
-    <PlayerDock client:idle />
+    {/* client:only — the cart reads localStorage on the client, so SSR-ing it would
+        always mismatch on a second page view (React hydration error). Nothing here needs HTML. */}
+    <CartDrawer client:only="react" />
+    <PlayerDock client:only="react" />
 
     {import.meta.env.DEV && hasLegalPlaceholders && (
       <div class="fixed bottom-2 left-2 z-50 bg-buff-400 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-ink-950">

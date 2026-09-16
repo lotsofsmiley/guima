@@ -5,7 +5,7 @@ import { products } from '../data/products';
 import { formatPrice } from '../lib/format';
 
 // In dev the draft products are purchasable so the cart flow can be exercised.
-const canBuyDrafts = import.meta.env.DEV;
+const canBuyDrafts = import.meta.env.DEV || import.meta.env.PUBLIC_ALLOW_DRAFTS === 'true';
 const thumbs = await Promise.all(products.map((p) => getImage({ src: p.image, width: 160, height: 160, format: 'webp' })));
 ---
 

@@ -3,7 +3,8 @@
  * and the YouTube-only freestyles (the "Au Revoir" series) and live sets.
  *
  * Source of truth is `discography.json`, seeded from public Spotify / Apple Music /
- * YouTube pages on 2026-09-16 (scripts kept in the vault project note). Pre-album
+ * YouTube pages on 2026-09-16 with the scripts in scripts/discography-seed/ (no API keys;
+ * re-run them and re-curate when a new single drops). Pre-album
  * singles (Cidade, Faroeste, …) are deliberately NOT here: they live in the album
  * tracklist, each with its own video link. Covers are remote CDN URLs on purpose —
  * they belong to the platforms and change when the artist updates them.

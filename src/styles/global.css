@@ -63,8 +63,8 @@
   html {
     scroll-behavior: smooth;
     /* The document scrolls (not an inner wrapper): anchors, find-in-page, print and
-       share previews all work. The fixed nav is compensated with scroll-padding. */
-    scroll-padding-top: var(--spacing-nav);
+       share previews all work. The fixed nav is compensated with scroll-margin-top on
+       every [id] target below (NOT also scroll-padding here — the two would add up). */
     background: var(--color-ink-900);
     color: var(--color-cream-100);
     -webkit-font-smoothing: antialiased;
