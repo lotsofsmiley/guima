@@ -1,0 +1,31 @@
+---
+/**
+ * Font Awesome glyph as inline SVG — the same icons the 2025 site used, without the
+ * kit script. Pass an icon definition from @fortawesome/free-*-svg-icons.
+ */
+import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
+
+interface Props {
+  icon: IconDefinition;
+  /** Height in px; width follows the glyph's own aspect ratio */
+  size?: number;
+  class?: string;
+}
+
+const { icon, size = 20, class: className } = Astro.props;
+const [w, h, , , path] = icon.icon;
+const paths = Array.isArray(path) ? path : [path];
+const width = Math.round((size * w) / h);
+---
+
+<svg
+  class={className}
+  width={width}
+  height={size}
+  viewBox={`0 0 ${w} ${h}`}
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  {paths.map((d) => <path d={d}></path>)}
+</svg>

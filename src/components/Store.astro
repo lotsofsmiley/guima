@@ -1,25 +1,23 @@
 ---
 import { Image, getImage } from 'astro:assets';
-import { ShoppingBag } from 'lucide-astro';
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import Icon from './Icon.astro';
 import { products } from '../data/products';
 import { formatPrice } from '../lib/format';
 
-// In dev the draft products are purchasable so the cart flow can be exercised.
+// In dev (or with PUBLIC_ALLOW_DRAFTS=true) the draft products are purchasable so the cart flow can be exercised.
 const canBuyDrafts = import.meta.env.DEV || import.meta.env.PUBLIC_ALLOW_DRAFTS === 'true';
 const thumbs = await Promise.all(products.map((p) => getImage({ src: p.image, width: 160, height: 160, format: 'webp' })));
 ---
 
 <section id="loja" class="section rule bg-ink-950">
   <div class="wrap">
-    <div class="reveal flex flex-wrap items-end justify-between gap-6">
-      <div>
-        <p class="eyebrow mb-4">Loja oficial</p>
-        <h2 class="text-headline uppercase text-cream-100"><span class="sw">L</span>OJA</h2>
-      </div>
-      <p class="max-w-sm text-cream-500 text-pretty">Merch oficial, enviado do Porto. Preços com IVA incluído; portes calculados no checkout.</p>
+    <div class="reveal">
+      <p class="eyebrow mb-4">Loja oficial</p>
+      <h2 class="text-headline uppercase text-cream-100"><span class="sw">L</span>OJA</h2>
     </div>
 
-    <ul class="reveal mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <ul class="reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {products.map((p, i) => {
         const buyable = !p.draft || canBuyDrafts;
         return (
@@ -40,20 +38,20 @@ const thumbs = await Promise.all(products.map((p) => getImage({ src: p.image, wi
                 class="h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
               />
               {p.draft && (
-                <span class="absolute left-3 top-3 bg-ink-950/80 px-2.5 py-1 text-xs uppercase tracking-[0.16em] text-buff-300">Em breve</span>
+                <span class="absolute left-3 top-3 bg-ink-950/80 px-2.5 py-1 text-sm uppercase tracking-[0.16em] text-buff-300">Em breve</span>
               )}
             </div>
 
             <div class="flex flex-1 flex-col gap-3 p-5">
               <div class="flex items-baseline justify-between gap-4">
-                <h3 class="text-xl font-medium uppercase tracking-wide text-cream-100">{p.title}</h3>
-                <p class="tabular text-lg text-sky-400">{formatPrice(p.priceCents)}</p>
+                <h3 class="text-[1.6rem] uppercase leading-tight tracking-wide text-cream-100">{p.title}</h3>
+                <p class="tabular text-[1.5rem] text-sky-400">{formatPrice(p.priceCents)}</p>
               </div>
-              <p class="text-sm text-cream-500">{p.description}</p>
+              <p class="text-cream-500">{p.description}</p>
 
               {p.variants.length > 1 ? (
                 <fieldset class="mt-1">
-                  <legend class="mb-2 text-xs uppercase tracking-[0.16em] text-cream-500">Tamanho</legend>
+                  <legend class="mb-2 text-sm uppercase tracking-[0.16em] text-cream-500">Tamanho</legend>
                   <div class="flex flex-wrap gap-2">
                     {p.variants.map((v, j) => (
                       <label class="variant">
@@ -64,11 +62,11 @@ const thumbs = await Promise.all(products.map((p) => getImage({ src: p.image, wi
                   </div>
                 </fieldset>
               ) : (
-                <input type="hidden" name={`variant-${p.id}`} value={p.variants[0].id} data-label={p.variants[0].label} checked />
+                <input type="hidden" name={`variant-${p.id}`} value={p.variants[0].id} data-label={p.variants[0].label} />
               )}
 
               <button class="btn btn--sky mt-auto w-full" type="button" data-add-to-cart disabled={!buyable}>
-                <ShoppingBag size={16} stroke-width={2} />
+                <Icon icon={faBagShopping} size={16} />
                 {buyable ? 'Adicionar ao carrinho' : 'Em breve'}
               </button>
             </div>
@@ -81,8 +79,8 @@ const thumbs = await Promise.all(products.map((p) => getImage({ src: p.image, wi
 
 <style>
   .variant span {
-    display: inline-grid; place-items: center; min-width: 2.75rem; height: 2.5rem; padding-inline: 0.75rem;
-    border: 1px solid var(--color-ink-600); color: var(--color-cream-300); font-size: 0.875rem; letter-spacing: 0.08em;
+    display: inline-grid; place-items: center; min-width: 3rem; height: 2.75rem; padding-inline: 0.85rem;
+    border: 1px solid var(--color-ink-600); color: var(--color-cream-300); font-size: 1rem; letter-spacing: 0.08em;
     cursor: pointer; transition: border-color 0.15s, color 0.15s, background-color 0.15s;
   }
   .variant:hover span { border-color: var(--color-cream-300); }

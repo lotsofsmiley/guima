@@ -3,33 +3,41 @@
  *
  * One source of truth for the visual system:
  *   - palette: ink (near-black), cream (text), sky (brand blue), buff (warm accent)
- *   - type: Sofia Sans Extra Condensed for text, League Gothic for display + a blackletter used ONLY for
- *     "swap letters" (the M in GUIMA, first letters of titles) — that swap is the brand.
- *   - Tailwind v4: tokens declared in @theme become utilities (bg-ink, text-sky-400, font-black…)
+ *   - type: Field Gothic No.34 Demi XCond for everything + DX Gotha ONLY for the
+ *     "swap letters" (the M in GUIMA, first letters of titles) — the swap is the brand.
+ *   - Tailwind v4: tokens declared in @theme become utilities (bg-ink-900, text-sky-400, font-black…)
  */
-
-/* Self-hosted fonts (no Google Fonts requests → no visitor IP leak, no consent question). */
-@import "@fontsource-variable/sofia-sans-extra-condensed";
-@import "@fontsource-variable/league-gothic";
-@import "@fontsource/pirata-one";
 @import "tailwindcss";
+
+/* The original fonts (self-hosted OTF, 74 KB for both). */
+@font-face {
+  font-family: "Field Gothic";
+  src: url("/fonts/FieldGothic-No34-DemiXCond.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DX Gotha";
+  src: url("/fonts/dxgotha.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   /* Type */
-  --font-condensed: "Sofia Sans Extra Condensed Variable", "Arial Narrow", sans-serif;
-  --font-display: "League Gothic Variable", "Sofia Sans Extra Condensed Variable", "Arial Narrow", Impact, sans-serif;
-  --font-black: "Pirata One", "UnifrakturMaguntia", serif;
+  --font-condensed: "Field Gothic", "Arial Narrow", Impact, sans-serif;
+  --font-display: "Field Gothic", "Arial Narrow", Impact, sans-serif;
+  --font-black: "DX Gotha", "UnifrakturMaguntia", serif;
 
-  --text-display: clamp(3.5rem, 2rem + 8vw, 9rem);
+  --text-display: clamp(4.5rem, 2.5rem + 9vw, 12rem);
   --text-display--line-height: 0.95;
   --text-display--letter-spacing: 0.04em;
 
-  --text-headline: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+  --text-headline: clamp(3rem, 2rem + 4.5vw, 6rem);
   --text-headline--line-height: 1.02;
   --text-headline--letter-spacing: 0.03em;
-
-  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
-  --text-lead--line-height: 1.5;
 
   /* Palette */
   --color-ink-950: #000000;
@@ -53,8 +61,8 @@
   --color-buff-500: #c48a56;
 
   /* Layout */
-  --spacing-nav: 4.5rem; /* fixed navbar height; also the scroll offset for #anchors */
-  --container-site: 75rem; /* 1200px */
+  --spacing-nav: 5rem; /* fixed navbar height; also the scroll offset for #anchors */
+  --container-site: 100rem; /* 1600px — the page uses the screen, not a centred column */
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -75,39 +83,37 @@
   body {
     font-family: var(--font-condensed);
     font-weight: 400;
-    font-size: 1.0625rem;
-    line-height: 1.5;
+    font-size: 1.25rem;
+    line-height: 1.4;
     letter-spacing: 0.01em;
     overflow-x: clip;
+    /* One weight per face: never let the browser fake a bold. */
+    font-synthesis: none;
   }
+  @media (min-width: 48rem) { body { font-size: 1.375rem; } }
   [id] { scroll-margin-top: var(--spacing-nav); }
 
-  /* Display face has a single weight: never let a utility fake-bold it. */
   h1, h2 { font-family: var(--font-display); font-weight: 400; }
 
   ::selection { background: var(--color-sky-400); color: var(--color-ink-950); }
 
-  /* Keyboard focus is visible and on-brand; mouse clicks don't show it. */
   :focus-visible {
     outline: 2px solid var(--color-sky-400);
     outline-offset: 3px;
     border-radius: 2px;
   }
 
-  /* Thin, dark scrollbar (WebKit) — keeps the black frame on desktop. */
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-thumb { background: var(--color-ink-600); border-radius: 999px; border: 2px solid var(--color-ink-900); }
   ::-webkit-scrollbar-thumb:hover { background: var(--color-sky-700); }
 }
 
 @layer components {
-  /* Swap letter — the brand device. Blackletter glyph in sky blue, slightly larger so its
-     x-height matches the condensed caps around it. */
+  /* Swap letter — the brand device. */
   .sw {
     font-family: var(--font-black);
     font-weight: 400;
     color: var(--color-sky-400);
-    font-size: 1.12em;
     line-height: 0.8;
     letter-spacing: 0;
   }
@@ -119,15 +125,15 @@
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
-  @media (min-width: 48rem) { .wrap { padding-inline: 2rem; } }
+  @media (min-width: 48rem) { .wrap { padding-inline: 3rem; } }
+  @media (min-width: 80rem) { .wrap { padding-inline: 4rem; } }
 
   .section { padding-block: 5rem; }
-  @media (min-width: 48rem) { .section { padding-block: 7rem; } }
+  @media (min-width: 48rem) { .section { padding-block: 8rem; } }
 
   .eyebrow {
     font-family: var(--font-condensed);
-    font-weight: 500;
-    font-size: 0.8125rem;
+    font-size: 1rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--color-buff-400);
@@ -137,9 +143,9 @@
 
   /* Buttons */
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    min-height: 2.75rem; padding: 0.5rem 1.25rem;
-    font-family: var(--font-condensed); font-weight: 500; font-size: 0.9375rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    min-height: 3.25rem; padding: 0.6rem 1.6rem;
+    font-family: var(--font-condensed); font-size: 1.125rem;
     letter-spacing: 0.12em; text-transform: uppercase;
     border: 1px solid var(--color-cream-100); color: var(--color-cream-100);
     background: transparent; cursor: pointer;
@@ -153,12 +159,11 @@
   .btn--sky:hover { background: var(--color-sky-400); color: var(--color-ink-950); }
   .btn--solid { background: var(--color-cream-100); color: var(--color-ink-950); }
   .btn--solid:hover { background: var(--color-sky-400); border-color: var(--color-sky-400); }
-  .btn--icon { min-width: 2.75rem; padding: 0.5rem; }
 
   /* Icon-only controls (nav, player) */
   .icon-btn {
     display: inline-grid; place-items: center;
-    width: 2.75rem; height: 2.75rem; border-radius: 999px;
+    width: 3rem; height: 3rem; border-radius: 999px;
     color: var(--color-cream-100); background: transparent; border: 0; cursor: pointer;
     transition: background-color 0.2s, color 0.2s;
   }
@@ -167,7 +172,7 @@
   /* Nav link with the underline-from-left reveal */
   .nav-link {
     position: relative; display: inline-block; padding-block: 0.25rem;
-    font-weight: 500; font-size: 0.9375rem; letter-spacing: 0.14em; text-transform: uppercase;
+    font-size: 1.25rem; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--color-cream-100); text-decoration: none;
   }
   .nav-link::after {
@@ -177,24 +182,21 @@
   }
   .nav-link:hover::after, .nav-link[aria-current="true"]::after { transform: scaleX(1); }
 
-  /* Vertical "chapter" rule used next to headings — from the original design */
-  .chapter-rule {
-    position: relative; padding-left: 1.25rem;
-  }
+  /* Vertical "chapter" rule next to headings — from the original design */
+  .chapter-rule { position: relative; padding-left: 1.25rem; }
   .chapter-rule::before {
     content: ""; position: absolute; left: 0; top: 0.35em; bottom: 0.2em; width: 2px;
     background: var(--color-buff-400);
   }
 
   /* Track row equalizer (playing state) */
-  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+  .eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 16px; }
   .eq i { display: block; width: 3px; background: var(--color-sky-400); animation: eq 0.9s ease-in-out infinite; }
   .eq i:nth-child(2) { animation-delay: 0.15s; } .eq i:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 16px; } }
   @media (prefers-reduced-motion: reduce) { .eq i { animation: none; height: 8px; } }
 
-  /* Reveal-on-scroll (progressive: content is visible without JS) */
-  .reveal { opacity: 1; transform: none; }
+  /* Reveal-on-scroll (only when JS added the `js` class; content is visible otherwise) */
   .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
   .js .reveal.is-in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }

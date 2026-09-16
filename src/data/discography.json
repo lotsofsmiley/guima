@@ -30,32 +30,6 @@
     "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/eb/79/2d/eb792dfa-fa56-d6c1-6d50-75616d2f2e0c/0.jpg/600x600bb.jpg"
   },
   {
-    "id": "montra",
-    "title": "Montra",
-    "type": "single",
-    "releaseDate": "2022-05-20",
-    "artists": [
-      "GUIMA",
-      "$TAG ONE",
-      "KEI"
-    ],
-    "appleUrl": "https://music.apple.com/pt/album/montra-feat-%24tag-one-kei/1625601993",
-    "youtubeId": "gHtlECja3yo",
-    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/f9/4a/7c/f94a7cc0-f3e7-29bd-5d26-1eb8d7b76f5f/0.jpg/600x600bb.jpg"
-  },
-  {
-    "id": "au-revoir-3",
-    "title": "Au Revoir #3",
-    "type": "single",
-    "releaseDate": "2021-10-22",
-    "artists": [
-      "GUIMA"
-    ],
-    "appleUrl": "https://music.apple.com/pt/album/au-revoir-3/1590423536",
-    "youtubeId": "vGkkDi3J4Y0",
-    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/a0/d5/8b/a0d58b46-d6e2-5169-0073-a54f8002eeda/0.jpg/600x600bb.jpg"
-  },
-  {
     "id": "nique-ta-mere",
     "title": "Nique Ta Mère",
     "type": "video",
@@ -79,71 +53,5 @@
     "youtubeId": "TxdHo1GtMCg",
     "note": "Ao vivo no Hard Club · apresentação Nova Era",
     "coverSource": "https://i.ytimg.com/vi/TxdHo1GtMCg/maxresdefault.jpg"
-  },
-  {
-    "id": "au-revoir-6",
-    "title": "Au Revoir #6",
-    "type": "video",
-    "releaseDate": "2024",
-    "artists": [
-      "GUIMA"
-    ],
-    "youtubeId": "7Bom33yZueA",
-    "coverSource": "https://i.ytimg.com/vi/7Bom33yZueA/hqdefault.jpg"
-  },
-  {
-    "id": "au-revoir-5",
-    "title": "Au Revoir #5 (La Kichta)",
-    "type": "video",
-    "releaseDate": "2023",
-    "artists": [
-      "GUIMA"
-    ],
-    "youtubeId": "5_G7f4xQRPI",
-    "coverSource": "https://i.ytimg.com/vi/5_G7f4xQRPI/maxresdefault.jpg"
-  },
-  {
-    "id": "au-revoir-4",
-    "title": "Au Revoir #4",
-    "type": "video",
-    "releaseDate": "2023",
-    "artists": [
-      "GUIMA"
-    ],
-    "youtubeId": "cahW8gNtdfQ",
-    "coverSource": "https://i.ytimg.com/vi/cahW8gNtdfQ/maxresdefault.jpg"
-  },
-  {
-    "id": "aligne",
-    "title": "ALIGNÉ",
-    "type": "video",
-    "releaseDate": "2021",
-    "artists": [
-      "GUIMA"
-    ],
-    "youtubeId": "TQKMo8eDZYc",
-    "coverSource": "https://i.ytimg.com/vi/TQKMo8eDZYc/maxresdefault.jpg"
-  },
-  {
-    "id": "au-revoir-2",
-    "title": "Au Revoir #2",
-    "type": "video",
-    "releaseDate": "2020",
-    "artists": [
-      "GUIMA"
-    ],
-    "youtubeId": "aOScGo9H9dQ",
-    "coverSource": "https://i.ytimg.com/vi/aOScGo9H9dQ/maxresdefault.jpg"
-  },
-  {
-    "id": "au-revoir-1",
-    "title": "Au Revoir",
-    "type": "video",
-    "releaseDate": "2019",
-    "artists": [
-      "GUIMA"
-    ],
-    "youtubeId": "vcTbpGE9Dec",
-    "coverSource": "https://i.ytimg.com/vi/vcTbpGE9Dec/maxresdefault.jpg"
   }
 ]

@@ -1,17 +1,17 @@
 ---
 import { Image, Picture, getImage } from 'astro:assets';
-import { Play } from 'lucide-astro';
-import BrandIcon from './BrandIcon.astro';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import Icon from './Icon.astro';
 import press25 from '../assets/press/press-25.jpg';
 import press90 from '../assets/press/press-90.jpg';
 import { album, plainTitle } from '../data/album';
+import { brandIcons } from '../lib/icons';
 import { formatDate, formatDuration, swapHtml } from '../lib/format';
 import type { PlayableTrack } from '../stores/player';
 
 /**
- * The tracklist is DATA (src/data/album.ts) rendered by a template — v1 had 13 hand-typed
- * <li> blocks. The same data, with covers resolved to URLs, is serialised as JSON for the
- * player island, so the click → play path never re-parses the DOM.
+ * The tracklist is DATA (src/data/album.ts) rendered by a template. The same data,
+ * with covers resolved to URLs, is serialised as JSON for the player island.
  */
 const covers = await Promise.all(
   album.tracks.map((t) => getImage({ src: t.cover, width: 128, height: 128, format: 'webp' })),
@@ -31,52 +31,40 @@ const queue: PlayableTrack[] = album.tracks.map((t, i) => ({
     apple: t.appleUrl ?? album.links.apple,
   },
 }));
-// "<" inside JSON would let a title close the script tag; escape it.
 const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
+
+const platformLinks = [
+  { id: 'spotify' as const, href: album.links.spotify, label: 'Ouvir no Spotify' },
+  { id: 'youtube' as const, href: album.links.youtube, label: 'Ver no YouTube' },
+  { id: 'applemusic' as const, href: album.links.apple, label: 'Ouvir na Apple Music' },
+];
 ---
 
 <section id="nova-era" class="section rule relative overflow-hidden bg-ink-950">
-  <!-- Press photo bleeding in from the right, faded into the black — v1's idea, done with a real
-       responsive image instead of a CSS background nobody can optimise. -->
+  <!-- Press photo bleeding in from the right, faded into the black. -->
   <div class="pointer-events-none absolute inset-y-0 right-0 w-full md:w-[58%]" aria-hidden="true">
-    <Picture
-      src={press25}
-      alt=""
-      formats={['avif', 'webp']}
-      widths={[640, 960, 1280, 1600]}
-      sizes="(min-width: 48rem) 58vw, 100vw"
-      loading="lazy"
-      class="press-img hidden md:block"
-    />
-    <Picture
-      src={press90}
-      alt=""
-      formats={['avif', 'webp']}
-      widths={[480, 768, 1024]}
-      sizes="100vw"
-      loading="lazy"
-      class="press-img md:hidden"
-    />
+    <Picture src={press25} alt="" formats={['avif', 'webp']} widths={[640, 960, 1280, 1600]} sizes="(min-width: 48rem) 58vw, 100vw" loading="lazy" class="press-img hidden md:block" />
+    <Picture src={press90} alt="" formats={['avif', 'webp']} widths={[480, 768, 1024]} sizes="100vw" loading="lazy" class="press-img md:hidden" />
     <div class="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/70 to-ink-950/20"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-ink-950/30"></div>
   </div>
 
   <div class="wrap relative">
-    <div class="reveal max-w-3xl">
+    <div class="reveal max-w-4xl">
       <p class="eyebrow mb-4">O álbum</p>
       <h2 class="text-headline uppercase text-cream-100 text-balance">
         A <span class="sw">N</span>OVA <span class="sw">E</span>RA É O <span class="sw">P</span>ORTO
       </h2>
     </div>
 
-    <div class="mt-12 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+    <div class="mt-14 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
       <aside class="reveal">
-        <div class="mx-auto max-w-[420px] lg:mx-0">
+        <div class="mx-auto max-w-[480px] lg:mx-0">
           <Image
             src={album.cover}
             alt={`Capa do álbum ${plainTitle(album.title)}`}
             widths={[320, 480, 640]}
-            sizes="(min-width: 64rem) 420px, (min-width: 40rem) 420px, 90vw"
+            sizes="(min-width: 64rem) 480px, (min-width: 40rem) 480px, 90vw"
             loading="lazy"
             class="w-full shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)]"
           />
@@ -84,21 +72,21 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
 
         <div class="mt-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h3 class="text-[2rem] font-medium uppercase leading-none tracking-[0.08em] text-cream-100" set:html={swapHtml(album.title)} />
-            <p class="mt-2 text-sm uppercase tracking-[0.16em] text-cream-500">{formatDate(album.releaseDate)} · {album.label}</p>
+            <h3 class="text-[2.5rem] uppercase leading-none tracking-[0.08em] text-cream-100" set:html={swapHtml(album.title)} />
+            <p class="mt-2 text-base uppercase tracking-[0.16em] text-cream-500">{formatDate(album.releaseDate)} · {album.label}</p>
           </div>
           <ul class="flex gap-1" aria-label="Ouvir o álbum em">
-            <li><a class="icon-btn text-sky-400" href={album.links.spotify} target="_blank" rel="noopener" aria-label="Ouvir no Spotify"><BrandIcon name="spotify" size={20} /></a></li>
-            <li><a class="icon-btn text-sky-400" href={album.links.youtube} target="_blank" rel="noopener" aria-label="Ver no YouTube"><BrandIcon name="youtube" size={20} /></a></li>
-            <li><a class="icon-btn text-sky-400" href={album.links.apple} target="_blank" rel="noopener" aria-label="Ouvir na Apple Music"><BrandIcon name="applemusic" size={20} /></a></li>
+            {platformLinks.map((l) => (
+              <li><a class="icon-btn text-sky-400" href={l.href} target="_blank" rel="noopener" aria-label={l.label}><Icon icon={brandIcons[l.id]} size={24} /></a></li>
+            ))}
           </ul>
         </div>
 
-        <blockquote class="mt-8 border-l-2 border-buff-400 pl-5 text-[1.125rem] leading-relaxed text-cream-300 text-pretty">
+        <blockquote class="mt-8 border-l-2 border-buff-400 pl-5 leading-relaxed text-cream-300 text-pretty">
           {album.quote}
         </blockquote>
 
-        <dl class="mt-8 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm text-cream-500">
+        <dl class="mt-8 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-base text-cream-500">
           {album.credits.map((c) => (
             <>
               <dt class="uppercase tracking-[0.12em] text-buff-400">{c.role}</dt>
@@ -115,18 +103,10 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
           <li class="track" data-track-id={t.id}>
             <button class="track-btn" type="button" data-play-track={t.id} aria-label={`Reproduzir ${plainTitle(t.title)}`}>
               <span class="track-n tabular">{String(t.n).padStart(2, '0')}</span>
-              <span class="track-play"><Play size={16} stroke-width={2.25} /></span>
+              <span class="track-play"><Icon icon={faPlay} size={16} /></span>
               <span class="track-eq eq" aria-hidden="true"><i></i><i></i><i></i></span>
             </button>
-            <img
-              class="track-thumb"
-              src={covers[i].src}
-              width="56"
-              height="56"
-              loading="lazy"
-              decoding="async"
-              alt=""
-            />
+            <img class="track-thumb" src={covers[i].src} width="64" height="64" loading="lazy" decoding="async" alt="" />
             <span class="track-main">
               <span class="track-title" set:html={swapHtml(t.title)} />
               <span class="track-artists">{t.artists.join(', ')}</span>
@@ -152,17 +132,18 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
   .tracklist { display: flex; flex-direction: column; }
   .track {
     display: grid;
-    grid-template-columns: 3rem 3.5rem minmax(0, 1fr) auto;
+    grid-template-columns: 3.25rem 4rem minmax(0, 1fr) auto;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.5rem 0.5rem 0;
+    gap: 0.9rem;
+    padding: 0.6rem 0.6rem 0.6rem 0;
     border-bottom: 1px solid color-mix(in oklab, var(--color-cream-100) 7%, transparent);
     transition: background-color 0.2s;
   }
   .track:hover, .track.is-current { background: color-mix(in oklab, var(--color-sky-400) 7%, transparent); }
   .track-btn {
-    position: relative; display: grid; place-items: center; width: 3rem; height: 3rem;
+    position: relative; display: grid; place-items: center; width: 3.25rem; height: 3.25rem;
     background: transparent; border: 0; color: var(--color-buff-400); cursor: pointer; border-radius: 999px;
+    font-size: 1.25rem;
   }
   .track-n, .track-play, .track-eq { grid-area: 1 / 1; transition: opacity 0.15s; }
   .track-play, .track-eq { opacity: 0; color: var(--color-cream-100); }
@@ -172,17 +153,17 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
   .track.is-playing .track-play { opacity: 0; }
   .track.is-playing:hover .track-eq { opacity: 0; }
   .track.is-playing:hover .track-play { opacity: 1; }
-  .track-thumb { width: 3.5rem; height: 3.5rem; object-fit: cover; }
+  .track-thumb { width: 4rem; height: 4rem; object-fit: cover; }
   .track-main { display: flex; flex-direction: column; min-width: 0; gap: 0.1rem; }
-  .track-title { font-size: 1.25rem; line-height: 1.1; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-cream-100); overflow-wrap: anywhere; }
+  .track-title { font-size: 1.6rem; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-cream-100); overflow-wrap: anywhere; }
   .track.is-current .track-title { color: var(--color-sky-300); }
-  .track-artists { font-size: 0.875rem; color: var(--color-cream-500); }
-  .track-dur { font-size: 0.9375rem; color: var(--color-buff-400); }
+  .track-artists { font-size: 1.05rem; color: var(--color-cream-500); }
+  .track-dur { font-size: 1.15rem; color: var(--color-buff-400); }
   @media (max-width: 26rem) {
     .track { grid-template-columns: 2.5rem 3rem minmax(0, 1fr) auto; gap: 0.5rem; }
     .track-btn { width: 2.5rem; }
     .track-thumb { width: 3rem; height: 3rem; }
-    .track-title { font-size: 1.1rem; }
+    .track-title { font-size: 1.35rem; }
   }
 </style>
 
@@ -199,7 +180,6 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
     btn.addEventListener('click', () => playTrack(queue[0], queue)),
   );
 
-  // Reflect the player state on the rows (current + playing). Pure class toggles, no re-render.
   const rows = Array.from(document.querySelectorAll<HTMLElement>('.track[data-track-id]'));
   const paint = () => {
     const cur = currentTrack.get()?.id;

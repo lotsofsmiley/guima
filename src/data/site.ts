@@ -14,19 +14,22 @@ export const site = {
   tagline: 'Porto · Hip-Hop · Real',
   /** Year the site went live — copyright reads "2025–<current year>" */
   since: 2025,
-  developer: { name: 'Filipe Guimarães', url: 'https://github.com/lotsofsmiley' },
+  developer: { name: 'Filipe Guimarães', url: 'https://guimaraes.systems' },
 } as const;
 
 export type NavItem = { href: string; label: string; swap?: number };
 
-/** In-page sections, in scroll order. `swap` = index of the letter rendered in blackletter. */
+/**
+ * In-page sections, in scroll order. Hrefs are absolute (`/#id`) so the nav also
+ * works from the legal pages. `swap` = index of the letter rendered in blackletter.
+ */
 export const nav: NavItem[] = [
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#nova-era', label: 'Nova Era', swap: 0 },
-  { href: '#singles', label: 'Singles' },
-  { href: '#galeria', label: 'Galeria' },
-  { href: '#loja', label: 'Loja' },
-  { href: '#contactos', label: 'Contactos' },
+  { href: '/#sobre', label: 'Sobre' },
+  { href: '/#nova-era', label: 'Nova Era', swap: 0 },
+  { href: '/#singles', label: 'Singles' },
+  { href: '/#galeria', label: 'Galeria' },
+  { href: '/#loja', label: 'Loja' },
+  { href: '/#contactos', label: 'Contactos' },
 ];
 
 export type Social = { id: 'instagram' | 'spotify' | 'applemusic' | 'youtube'; label: string; href: string };

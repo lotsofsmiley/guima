@@ -1,14 +1,14 @@
 ---
 import { Picture } from 'astro:assets';
-import { ChevronDown, Play } from 'lucide-astro';
+import { faPlay, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import Icon from './Icon.astro';
 import hero from '../assets/hero/hero-nova-era.jpg';
 import { album } from '../data/album';
 import { products } from '../data/products';
 import { socials } from '../data/site';
 import { formatDate } from '../lib/format';
 
-// Second CTA only points at the store once something is actually purchasable;
-// a button into a wall of "Em breve" is worse than no button.
+// Second CTA only points at the store once something is actually purchasable.
 const storeLive = products.some((p) => !p.draft);
 const instagram = socials.find((s) => s.id === 'instagram')!;
 ---
@@ -26,27 +26,23 @@ const instagram = socials.find((s) => s.id === 'instagram')!;
       decoding="async"
       quality={78}
     />
-    <!-- Scrim: keeps the title legible on any crop without the black box of v1 -->
     <div class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/35 to-ink-950/10"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-ink-950/60 via-transparent to-transparent"></div>
   </div>
 
   <div class="wrap relative pb-20 pt-40 md:pb-28">
-    <p class="eyebrow mb-4">Álbum de estreia · {formatDate(album.releaseDate)}</p>
+    <p class="eyebrow mb-8">Álbum de estreia · {formatDate(album.releaseDate)}</p>
     <h1 class="text-display uppercase text-cream-100 text-balance">
       <span class="sw">“</span><span class="sw">N</span>OVA <span class="sw">E</span>RA<span class="sw">”</span>
     </h1>
-    <p class="mt-5 max-w-xl text-lead text-cream-300 text-pretty">
-      Treze faixas para conquistar a cidade e escrever o nome nela. Produção de Vilas Boas, editora 2ºPiso.
-    </p>
-    <div class="mt-8 flex flex-wrap gap-3">
+    <div class="mt-10 flex flex-wrap gap-3">
       <button class="btn btn--solid" type="button" data-play-album>
-        <Play size={16} stroke-width={2.25} /> Ouvir agora
+        <Icon icon={faPlay} size={16} /> Ouvir agora
       </button>
       {storeLive ? (
         <a class="btn" href="#loja">Comprar o CD</a>
       ) : (
-        <a class="btn" href={instagram.href} target="_blank" rel="noopener">Seguir no Instagram</a>
+        <a class="btn" href={instagram.href} target="_blank" rel="noopener">Instagram</a>
       )}
     </div>
   </div>
@@ -56,7 +52,7 @@ const instagram = socials.find((s) => s.id === 'instagram')!;
     class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-cream-500 transition-colors hover:text-cream-100 md:block"
     aria-label="Ir para a secção Sobre"
   >
-    <ChevronDown size={28} stroke-width={1.5} class="animate-bounce" />
+    <Icon icon={faChevronDown} size={22} class="animate-bounce" />
   </a>
 </section>
 

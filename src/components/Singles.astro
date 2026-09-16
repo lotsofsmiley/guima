@@ -1,15 +1,14 @@
 ---
 import { Image, getImage } from 'astro:assets';
-import { Play, X } from 'lucide-astro';
-import BrandIcon from './BrandIcon.astro';
+import { faPlay, faXmark } from '@fortawesome/free-solid-svg-icons';
+import Icon from './Icon.astro';
 import { releases, yearOf, typeLabel, coverOf } from '../data/discography';
+import { brandIcons } from '../lib/icons';
 import type { PlayableTrack } from '../stores/player';
 
 /**
- * Two kinds of card share one grid:
  *   - releases with a Spotify id → play in the bottom dock (same player as the album)
- *   - YouTube-only videos        → open in a modal; the iframe is only created on click,
- *                                  so no YouTube request (or cookie) happens before that.
+ *   - YouTube-only videos        → open in a modal; the iframe is only created on click
  */
 const thumbs = await Promise.all(releases.map((r) => getImage({ src: coverOf(r), width: 128, height: 128, format: 'webp' })));
 
@@ -35,30 +34,31 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
 {releases.length > 0 && (
   <section id="singles" class="section rule bg-ink-900">
     <div class="wrap">
-      <div class="reveal flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <p class="eyebrow mb-4">Discografia</p>
-          <h2 class="text-headline uppercase text-cream-100"><span class="sw">S</span>INGLES <span class="text-cream-500">&amp;</span> <span class="sw">F</span>REESTYLES</h2>
-        </div>
-        <p class="max-w-sm text-cream-500 text-pretty">O que saiu antes e depois do álbum. Carrega para ouvir ou ver aqui mesmo.</p>
+      <div class="reveal">
+        <p class="eyebrow mb-4">Discografia</p>
+        <h2 class="text-headline uppercase text-cream-100">
+          <span class="sw">S</span>INGLES <span class="mx-1 align-middle text-[0.4em] text-cream-500/40">&amp;</span> <span class="sw">F</span>REESTYLES
+        </h2>
       </div>
-    </div>
 
-    <!-- Horizontal strip on phones (snap), grid on desktop -->
-    <div class="mt-10">
-      <ul class="wrap reveal flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible lg:grid-cols-4" id="singles-list">
+      <ul class="reveal mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible lg:grid-cols-4" id="singles-list">
         {releases.map((r) => {
           const viaSpotify = Boolean(r.playSpotifyId ?? r.spotifyId);
           const viaVideo = !viaSpotify && Boolean(r.youtubeId);
           const isVideo = r.type === 'video' || r.type === 'live';
+          const links = [
+            r.spotifyUrl && { id: 'spotify' as const, href: r.spotifyUrl, label: 'Spotify' },
+            r.youtubeId && { id: 'youtube' as const, href: `https://www.youtube.com/watch?v=${r.youtubeId}`, label: 'YouTube' },
+            r.appleUrl && { id: 'applemusic' as const, href: r.appleUrl, label: 'Apple Music' },
+          ].filter((l): l is { id: 'spotify' | 'youtube' | 'applemusic'; href: string; label: string } => Boolean(l));
           return (
-            <li class="release group w-[72vw] shrink-0 snap-start sm:w-[46vw] md:w-auto" data-release-id={`rel-${r.id}`}>
+            <li class="release group w-[74vw] shrink-0 snap-start sm:w-[46vw] md:w-auto" data-release-id={`rel-${r.id}`}>
               <div class="relative aspect-square overflow-hidden bg-ink-800">
                 <Image
                   src={coverOf(r)}
                   alt={`${isVideo ? 'Miniatura' : 'Capa'} de ${r.title}`}
-                  widths={[320, 480, 640]}
-                  sizes="(min-width: 64rem) 22vw, (min-width: 48rem) 30vw, 72vw"
+                  widths={[400, 600, 800]}
+                  sizes="(min-width: 64rem) 24vw, (min-width: 48rem) 45vw, 74vw"
                   loading="lazy"
                   class="release-cover h-full w-full object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.03]"
                 />
@@ -71,27 +71,26 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
                     data-video-title={viaVideo ? r.title : undefined}
                     aria-label={`${viaSpotify ? 'Reproduzir' : 'Ver o vídeo de'} ${r.title}`}
                   >
-                    <span class="grid h-14 w-14 place-items-center rounded-full bg-cream-100 text-ink-950 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
-                      <Play size={22} stroke-width={2.25} class="translate-x-0.5" />
+                    <span class="grid h-16 w-16 place-items-center rounded-full bg-cream-100 text-ink-950 opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100">
+                      <Icon icon={faPlay} size={22} class="translate-x-0.5" />
                     </span>
                   </button>
                 )}
-                <span class="pointer-events-none absolute left-3 top-3 bg-ink-950/75 px-2 py-0.5 text-[0.65rem] uppercase tracking-[0.18em] text-buff-300">
+                <span class="pointer-events-none absolute left-3 top-3 bg-ink-950/75 px-2 py-0.5 text-sm uppercase tracking-[0.18em] text-buff-300">
                   {typeLabel[r.type]}
                 </span>
               </div>
               <div class="mt-3 flex items-start justify-between gap-3">
                 <div class="min-w-0">
-                  <h3 class="truncate text-lg font-medium uppercase tracking-wide text-cream-100">{r.title}</h3>
-                  <p class="truncate text-xs uppercase tracking-[0.14em] text-cream-500">
+                  <h3 class="truncate text-[1.6rem] uppercase leading-tight tracking-wide text-cream-100">{r.title}</h3>
+                  <p class="truncate text-base uppercase tracking-[0.14em] text-cream-500">
                     {yearOf(r)}{r.artists.length > 1 && ` · ${r.artists.filter((a) => a !== 'GUIMA').join(', ')}`}
                   </p>
-                  {r.note && <p class="mt-0.5 truncate text-xs text-cream-500">{r.note}</p>}
                 </div>
                 <ul class="flex shrink-0 gap-0.5 text-buff-400">
-                  {r.spotifyUrl && <li><a class="icon-btn h-9 w-9" href={r.spotifyUrl} target="_blank" rel="noopener" aria-label="Spotify"><BrandIcon name="spotify" size={16} /></a></li>}
-                  {r.youtubeId && <li><a class="icon-btn h-9 w-9" href={`https://www.youtube.com/watch?v=${r.youtubeId}`} target="_blank" rel="noopener" aria-label="YouTube"><BrandIcon name="youtube" size={16} /></a></li>}
-                  {r.appleUrl && <li><a class="icon-btn h-9 w-9" href={r.appleUrl} target="_blank" rel="noopener" aria-label="Apple Music"><BrandIcon name="applemusic" size={16} /></a></li>}
+                  {links.map((l) => (
+                    <li><a class="icon-btn h-10 w-10" href={l.href} target="_blank" rel="noopener" aria-label={l.label}><Icon icon={brandIcons[l.id]} size={20} /></a></li>
+                  ))}
                 </ul>
               </div>
             </li>
@@ -102,8 +101,8 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
 
     <dialog id="video-modal" class="m-0 h-dvh max-h-none w-full max-w-none bg-ink-950/95 p-0 text-cream-100 backdrop:bg-ink-950/90" aria-label="Vídeo">
       <div class="relative flex h-full items-center justify-center p-4">
-        <div class="aspect-video w-full max-w-5xl bg-ink-900" data-video-frame></div>
-        <button class="icon-btn absolute right-3 top-3 bg-ink-900/70" type="button" data-video-close aria-label="Fechar vídeo"><X size={26} /></button>
+        <div class="aspect-video w-full max-w-6xl bg-ink-900" data-video-frame></div>
+        <button class="icon-btn absolute right-3 top-3 bg-ink-900/70" type="button" data-video-close aria-label="Fechar vídeo"><Icon icon={faXmark} size={30} /></button>
       </div>
     </dialog>
 
@@ -134,11 +133,10 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
     const rows = Array.from(document.querySelectorAll<HTMLElement>('.release[data-release-id]'));
     currentTrack.subscribe((t) => rows.forEach((r) => r.classList.toggle('is-current', r.dataset.releaseId === t?.id)));
 
-    // --- video modal (YouTube-only items). Iframe created on demand, removed on close.
     const modal = document.getElementById('video-modal') as HTMLDialogElement;
     const frame = modal.querySelector<HTMLElement>('[data-video-frame]')!;
     const open = (id: string, title: string) => {
-      intent.set('pause'); // don't fight the audio dock
+      intent.set('pause');
       frame.innerHTML = '';
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;

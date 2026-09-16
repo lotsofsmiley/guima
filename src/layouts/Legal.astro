@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
-import { ArrowLeft } from 'lucide-astro';
+import Icon from '../components/Icon.astro';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { legal } from '../data/site';
 import { formatDate } from '../lib/format';
 
@@ -15,16 +16,16 @@ const { title, description, updated, path, showSeller = false } = Astro.props;
 ---
 
 <Base title={`${title} — GUIMA`} description={description} path={path}>
-  <article class="wrap pb-24 pt-32 md:pt-40">
-    <a href="/" class="mb-8 inline-flex items-center gap-2 text-sm uppercase tracking-[0.14em] text-cream-500 hover:text-cream-100">
-      <ArrowLeft size={16} /> Voltar ao site
+  <article class="wrap pb-24 pt-36 md:pt-44">
+    <a href="/" class="mb-8 inline-flex items-center gap-2 text-base uppercase tracking-[0.14em] text-cream-500 hover:text-cream-100">
+      <Icon icon={faArrowLeft} size={14} /> Voltar ao site
     </a>
     <p class="eyebrow mb-3">Informação legal</p>
     <h1 class="text-headline uppercase text-cream-100">{title}</h1>
-    <p class="mt-3 text-sm text-cream-500">Última atualização: {formatDate(updated)}</p>
+    <p class="mt-3 text-base text-cream-500">Última atualização: {formatDate(updated)}</p>
 
     {showSeller && (
-      <aside class="mt-8 border border-ink-700 bg-ink-800 p-5 text-sm" aria-label="Identificação do vendedor">
+      <aside class="mt-8 max-w-3xl border border-ink-700 bg-ink-800 p-5" aria-label="Identificação do vendedor">
         <p class="eyebrow mb-2">Vendedor</p>
         <dl class="grid gap-1 sm:grid-cols-[auto_1fr] sm:gap-x-6">
           <dt class="text-cream-500">Nome</dt><dd class="text-cream-100">{legal.sellerName}</dd>
@@ -36,16 +37,16 @@ const { title, description, updated, path, showSeller = false } = Astro.props;
       </aside>
     )}
 
-    <div class="legal-prose mt-10 max-w-prose">
+    <div class="legal-prose mt-10 max-w-4xl">
       <slot />
     </div>
   </article>
 </Base>
 
 <style is:global>
-  .legal-prose { color: var(--color-cream-300); font-size: 1.0625rem; line-height: 1.65; }
-  .legal-prose h2 { margin-top: 2.5rem; margin-bottom: 0.75rem; font-size: 1.5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-cream-100); }
-  .legal-prose h3 { margin-top: 1.75rem; margin-bottom: 0.5rem; font-size: 1.15rem; font-weight: 500; color: var(--color-cream-100); }
+  .legal-prose { color: var(--color-cream-300); line-height: 1.55; }
+  .legal-prose h2 { margin-top: 2.5rem; margin-bottom: 0.75rem; font-size: 2rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-cream-100); }
+  .legal-prose h3 { margin-top: 1.75rem; margin-bottom: 0.5rem; font-size: 1.5rem; color: var(--color-cream-100); }
   .legal-prose p { margin-block: 0.75rem; }
   .legal-prose ul, .legal-prose ol { margin-block: 0.75rem; padding-left: 1.25rem; }
   .legal-prose li { margin-block: 0.25rem; }
@@ -53,8 +54,8 @@ const { title, description, updated, path, showSeller = false } = Astro.props;
   .legal-prose ol { list-style: decimal; }
   .legal-prose a { color: var(--color-sky-400); text-decoration: underline; text-underline-offset: 3px; }
   .legal-prose a:hover { color: var(--color-sky-300); }
-  .legal-prose strong { color: var(--color-cream-100); font-weight: 500; }
-  .legal-prose table { width: 100%; border-collapse: collapse; margin-block: 1rem; font-size: 0.95rem; }
+  .legal-prose strong { color: var(--color-cream-100); }
+  .legal-prose table { width: 100%; border-collapse: collapse; margin-block: 1rem; font-size: 1.05rem; }
   .legal-prose th, .legal-prose td { border: 1px solid var(--color-ink-700); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
-  .legal-prose th { color: var(--color-cream-100); font-weight: 500; }
+  .legal-prose th { color: var(--color-cream-100); }
 </style>

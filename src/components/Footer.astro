@@ -1,11 +1,12 @@
 ---
 import Wordmark from './Wordmark.astro';
-import BrandIcon from './BrandIcon.astro';
+import Icon from './Icon.astro';
 import { site, socials, legal } from '../data/site';
+import { brandIcons } from '../lib/icons';
 
 const year = new Date().getFullYear();
-const hasContactEmail = !legal.email.startsWith('[');
 const years = year > site.since ? `${site.since}–${year}` : String(site.since);
+const hasContactEmail = !legal.email.startsWith('[');
 
 const legalLinks = [
   { href: '/privacidade/', label: 'Privacidade' },
@@ -19,37 +20,37 @@ const legalLinks = [
   <div class="wrap">
     <div class="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
       <div>
-        <Wordmark class="text-[clamp(3rem,10vw,6rem)] leading-none" />
+        <Wordmark class="text-[clamp(3.5rem,10vw,7rem)] leading-none" />
         <p class="eyebrow mt-3">{site.tagline}</p>
       </div>
       <div class="flex flex-col gap-4 md:items-end">
-      <p class="text-sm text-cream-500">
-        Bookings e imprensa:
-        {hasContactEmail ? (
-          <a class="text-cream-100 hover:text-sky-400" href={`mailto:${legal.email}`}>{legal.email}</a>
-        ) : (
-          <a class="text-cream-100 hover:text-sky-400" href={socials[0].href} target="_blank" rel="noopener">mensagem no Instagram</a>
-        )}
-      </p>
-      <ul class="flex flex-wrap gap-2" aria-label="Redes sociais">
-        {socials.map((s) => (
-          <li>
-            <a
-              class="group flex items-center gap-2 border border-ink-600 px-4 py-2.5 text-sm uppercase tracking-[0.12em] text-cream-300 transition-colors hover:border-buff-400 hover:text-buff-300"
-              href={s.href}
-              target="_blank"
-              rel="noopener"
-            >
-              <BrandIcon name={s.id} size={16} class="text-buff-400" />
-              {s.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+        <p class="text-cream-500">
+          Bookings e imprensa:
+          {hasContactEmail ? (
+            <a class="text-cream-100 hover:text-sky-400" href={`mailto:${legal.email}`}>{legal.email}</a>
+          ) : (
+            <a class="text-cream-100 hover:text-sky-400" href={socials[0].href} target="_blank" rel="noopener">mensagem no Instagram</a>
+          )}
+        </p>
+        <ul class="flex flex-wrap gap-2" aria-label="Redes sociais">
+          {socials.map((s) => (
+            <li>
+              <a
+                class="flex items-center gap-2.5 border border-ink-600 px-4 py-2.5 text-base uppercase tracking-[0.12em] text-cream-300 transition-colors hover:border-buff-400 hover:text-buff-300"
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+              >
+                <Icon icon={brandIcons[s.id]} size={18} class="text-buff-400" />
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
 
-    <div class="mt-12 grid gap-6 border-t border-ink-700 pt-6 text-sm text-cream-500 md:grid-cols-[1fr_auto] md:items-center">
+    <div class="mt-12 grid gap-6 border-t border-ink-700 pt-6 text-base text-cream-500 md:grid-cols-[1fr_auto] md:items-center">
       <ul class="flex flex-wrap gap-x-5 gap-y-2">
         {legalLinks.map((l) => (
           <li><a class="hover:text-cream-100" href={l.href}>{l.label}</a></li>
