@@ -1,7 +1,6 @@
 import type { ImageMetadata } from 'astro';
 import cover from '../assets/album/cover.jpg';
 import tee from '../assets/store/tee-placeholder.png';
-import hoodie from '../assets/store/hoodie-placeholder.png';
 
 /**
  * Catalogue for the store section. Prices in cents, IVA included (consumer price —
@@ -50,16 +49,6 @@ export const products: Product[] = [
     description: 'Algodão 100 %, corte regular, estampado frontal.',
     image: tee,
     variants: ['S', 'M', 'L', 'XL'].map((s) => ({ id: `tshirt-nova-era-${s.toLowerCase()}`, label: s, inStock: true })),
-    draft: true,
-  },
-  {
-    id: 'hoodie-nova-era',
-    title: 'Hoodie "Nova Era"',
-    kind: 'apparel',
-    priceCents: 4500,
-    description: 'Hoodie pesada, bordado no peito.',
-    image: hoodie,
-    variants: ['S', 'M', 'L', 'XL'].map((s) => ({ id: `hoodie-nova-era-${s.toLowerCase()}`, label: s, inStock: true })),
     draft: true,
   },
 ];
