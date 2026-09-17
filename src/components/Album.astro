@@ -176,8 +176,9 @@ const platformLinks = [
   document.querySelectorAll<HTMLButtonElement>('[data-play-track]').forEach((btn) =>
     btn.addEventListener('click', () => playTrack(byId.get(btn.dataset.playTrack!)!, queue)),
   );
+  // Hero button: starts at the track named in data-play-album (the title track), queue = whole album.
   document.querySelectorAll<HTMLButtonElement>('[data-play-album]').forEach((btn) =>
-    btn.addEventListener('click', () => playTrack(queue[0], queue)),
+    btn.addEventListener('click', () => playTrack(byId.get(btn.dataset.playAlbum!) ?? queue[0], queue)),
   );
 
   const rows = Array.from(document.querySelectorAll<HTMLElement>('.track[data-track-id]'));
