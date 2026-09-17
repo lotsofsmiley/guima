@@ -11,7 +11,8 @@
     "spotifyUrl": "https://open.spotify.com/track/5T6l2v4ZH4nBgqQGYN7Ooy",
     "appleUrl": "https://music.apple.com/pt/album/som-do-vinho/6794421892",
     "youtubeId": "fhoiSeUwJig",
-    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/97/64/95/9764956c-a0dc-25b1-90ac-e78de56c609f/0.jpg/600x600bb.jpg"
+    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/97/64/95/9764956c-a0dc-25b1-90ac-e78de56c609f/0.jpg/600x600bb.jpg",
+    "audio": "/audio/som-do-vinho.mp3"
   },
   {
     "id": "no-mapa",
@@ -27,12 +28,13 @@
     "spotifyId": "6tUzAVfFr6MatWppBtboxi",
     "spotifyUrl": "https://open.spotify.com/track/6tUzAVfFr6MatWppBtboxi",
     "youtubeId": "_iBAg1VAsFY",
-    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/eb/79/2d/eb792dfa-fa56-d6c1-6d50-75616d2f2e0c/0.jpg/600x600bb.jpg"
+    "coverSource": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/eb/79/2d/eb792dfa-fa56-d6c1-6d50-75616d2f2e0c/0.jpg/600x600bb.jpg",
+    "audio": "/audio/no-mapa.mp3"
   },
   {
     "id": "nique-ta-mere",
     "title": "Nique Ta Mère",
-    "type": "video",
+    "type": "feature",
     "releaseDate": "2026-09-17",
     "artists": [
       "GUIMA",

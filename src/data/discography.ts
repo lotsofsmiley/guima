@@ -28,6 +28,8 @@ export interface Release {
   coverSource: string;
   /** Short context line shown under the title (e.g. "Prod. K1X") */
   note?: string;
+  /** Own clip in public/audio/ → native player; otherwise the Spotify embed is used */
+  audio?: string;
   spotifyId?: string;
   spotifyUrl?: string;
   appleUrl?: string;

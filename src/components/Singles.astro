@@ -14,12 +14,13 @@ const thumbs = await Promise.all(releases.map((r) => getImage({ src: coverOf(r),
 
 const queue: PlayableTrack[] = releases
   .map((r, i) => ({ r, cover: thumbs[i].src }))
-  .filter(({ r }) => r.playSpotifyId ?? r.spotifyId)
+  .filter(({ r }) => r.audio || r.playSpotifyId || r.spotifyId)
   .map(({ r, cover }) => ({
     id: `rel-${r.id}`,
     title: r.title,
     artists: r.artists,
     cover,
+    audio: r.audio,
     spotifyId: r.playSpotifyId ?? r.spotifyId,
     youtubeId: r.youtubeId,
     links: {
@@ -43,7 +44,7 @@ const queueJson = JSON.stringify(queue).replace(/</g, '\\u003c');
 
       <ul class="reveal mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 md:grid md:grid-cols-2 md:gap-8 md:overflow-visible lg:grid-cols-4" id="singles-list">
         {releases.map((r) => {
-          const viaSpotify = Boolean(r.playSpotifyId ?? r.spotifyId);
+          const viaSpotify = Boolean(r.audio || r.playSpotifyId || r.spotifyId); // plays in the dock
           const viaVideo = !viaSpotify && Boolean(r.youtubeId);
           const isVideo = r.type === 'video' || r.type === 'live';
           const links = [
